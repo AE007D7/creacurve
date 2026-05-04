@@ -1,0 +1,94 @@
+{
+  "id": "de678c4a-6929-4695-baae-e83623f3465f",
+  "logo_url": "http://localhost:3000/uploads/1777818054474-dzix2xb04qs.png",
+  "brand_name": "2E7540DA-3B21-4ADD-9889-E1F6ECE7E2C8",
+  "original_filename": "2E7540DA-3B21-4ADD-9889-E1F6ECE7E2C8.png",
+  "status": "complete",
+  "progress": 100,
+  "brand_data": {
+    "primaryColors": [
+      {
+        "hex": "#7c3aed",
+        "rgb": {
+          "r": 124,
+          "g": 58,
+          "b": 237
+        },
+        "name": "Electric Violet",
+        "usage": "Primary brand color for CTAs and key elements"
+      }
+    ],
+    "secondaryColors": [
+      {
+        "hex": "#06b6d4",
+        "rgb": {
+          "r": 6,
+          "g": 182,
+          "b": 212
+        },
+        "name": "Cyan Glow",
+        "usage": "Secondary accents and highlights"
+      }
+    ],
+    "accentColors": [
+      {
+        "hex": "#fb7185",
+        "rgb": {
+          "r": 251,
+          "g": 113,
+          "b": 133
+        },
+        "name": "Soft Coral",
+        "usage": "Warm accents and call-to-actions"
+      }
+    ],
+    "style": "tech",
+    "personality": [
+      "innovative",
+      "trustworthy",
+      "modern",
+      "bold",
+      "dynamic"
+    ],
+    "industry": "Technology",
+    "targetAudience": "Forward-thinking professionals and entrepreneurs aged 25-45",
+    "fontPairings": [
+      {
+        "heading": "Inter",
+        "body": "Inter",
+        "mood": "Clean, modern, highly legible",
+        "googleFontsUrl": "https://fonts.google.com/specimen/Inter"
+      }
+    ],
+    "brandVoice": {
+      "tone": "Confident, clear, and empowering",
+      "vocabulary": [
+        "innovative",
+        "seamless",
+        "powerful",
+        "effortless",
+        "transform"
+      ],
+      "examples": [
+        "2E7540DA-3B21-4ADD-9889-E1F6ECE7E2C8 — built for the future.",
+        "Where ideas become reality."
+      ]
+    },
+    "taglineSuggestions": [
+      "2E7540DA-3B21-4ADD-9889-E1F6ECE7E2C8 — built for what's next.",
+      "Shape the future, today.",
+      "Your vision, amplified."
+    ],
+    "designPrinciples": [
+      "Clarity over complexity",
+      "Bold but refined",
+      "Consistent visual language",
+      "Premium at every touchpoint"
+    ]
+  },
+  "zip_url": null,
+  "created_at": "2026-05-03T14:20:54.500Z",
+  "completed_at": "2026-05-03T14:21:06.897Z",
+  "error_message": null,
+  "user_id": "dev-user"
+}

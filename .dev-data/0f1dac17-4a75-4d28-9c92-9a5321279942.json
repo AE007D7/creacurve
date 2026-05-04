@@ -1,0 +1,438 @@
+{
+  "id": "0f1dac17-4a75-4d28-9c92-9a5321279942",
+  "logo_url": "http://localhost:3000/uploads/1777820037740-akpqvmps63a.png",
+  "brand_name": "Kenneth Racing",
+  "original_filename": "logo.png",
+  "status": "complete",
+  "progress": 100,
+  "brand_data": {
+    "primaryColors": [
+      {
+        "hex": "#030000",
+        "rgb": {
+          "r": 3,
+          "g": 0,
+          "b": 0
+        },
+        "name": "Deep Crimson",
+        "usage": "Primary brand colour — use for CTAs, key elements & backgrounds"
+      },
+      {
+        "hex": "#d3030a",
+        "rgb": {
+          "r": 211,
+          "g": 3,
+          "b": 10
+        },
+        "name": "Ruby Red",
+        "usage": "Secondary colour — use for accents, highlights & supporting elements"
+      }
+    ],
+    "secondaryColors": [
+      {
+        "hex": "#171717",
+        "rgb": {
+          "r": 23,
+          "g": 23,
+          "b": 23
+        },
+        "name": "Deep Shadow",
+        "usage": "Accent colour — use for hover states, badges & decorative touches"
+      },
+      {
+        "hex": "#2c2e2e",
+        "rgb": {
+          "r": 44,
+          "g": 46,
+          "b": 46
+        },
+        "name": "Charcoal",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      }
+    ],
+    "accentColors": [
+      {
+        "hex": "#a70205",
+        "rgb": {
+          "r": 167,
+          "g": 2,
+          "b": 5
+        },
+        "name": "Deep Ruby Red",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      },
+      {
+        "hex": "#2e0203",
+        "rgb": {
+          "r": 46,
+          "g": 2,
+          "b": 3
+        },
+        "name": "Deep Scarlet",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      },
+      {
+        "hex": "#5f0305",
+        "rgb": {
+          "r": 95,
+          "g": 3,
+          "b": 5
+        },
+        "name": "Deep Crimson",
+        "usage": "Background / neutral — use for surfaces and spacers"
+      }
+    ],
+    "style": "tech",
+    "personality": [
+      "innovative",
+      "trustworthy",
+      "modern",
+      "bold"
+    ],
+    "industry": "Technology",
+    "targetAudience": "Forward-thinking professionals",
+    "fontPairings": [
+      {
+        "heading": "Inter",
+        "body": "Inter",
+        "mood": "Clean, modern",
+        "googleFontsUrl": ""
+      }
+    ],
+    "brandVoice": {
+      "tone": "Confident and clear",
+      "vocabulary": [
+        "innovative",
+        "seamless"
+      ],
+      "examples": [
+        "Kenneth Racing — built for the future."
+      ]
+    },
+    "taglineSuggestions": [
+      "Kenneth Racing — built for what's next.",
+      "Shape the future, today."
+    ],
+    "designPrinciples": [
+      "Clarity over complexity",
+      "Bold but refined"
+    ]
+  },
+  "zip_url": null,
+  "created_at": "2026-05-03T14:53:57.772Z",
+  "completed_at": "2026-05-03T17:34:49.212Z",
+  "error_message": null,
+  "user_id": "dev-user",
+  "assets": [
+    {
+      "id": "logo-original",
+      "category": "logos",
+      "name": "Logo — Original",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-original.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-original-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 477339
+    },
+    {
+      "id": "logo-white",
+      "category": "logos",
+      "name": "Logo — White",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-white.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-white-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 225172
+    },
+    {
+      "id": "logo-black",
+      "category": "logos",
+      "name": "Logo — Black",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-black.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-black-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 248868
+    },
+    {
+      "id": "logo-monochrome",
+      "category": "logos",
+      "name": "Logo — Monochrome",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-monochrome.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-monochrome-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 461978
+    },
+    {
+      "id": "logo-favicon-pack",
+      "category": "logos",
+      "name": "Favicon Pack (512px)",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-favicon-pack.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/logo-favicon-pack-thumb.png",
+      "width": 512,
+      "height": 512,
+      "file_size": 66306
+    },
+    {
+      "id": "instagram-profile",
+      "category": "social",
+      "name": "Instagram Profile Photo",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/instagram-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/instagram-profile-thumb.png",
+      "width": 320,
+      "height": 320,
+      "file_size": 15113
+    },
+    {
+      "id": "twitter-profile",
+      "category": "social",
+      "name": "Twitter / X Profile Photo",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/twitter-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/twitter-profile-thumb.png",
+      "width": 400,
+      "height": 400,
+      "file_size": 22419
+    },
+    {
+      "id": "facebook-profile",
+      "category": "social",
+      "name": "Facebook Profile Photo",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/facebook-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/facebook-profile-thumb.png",
+      "width": 170,
+      "height": 170,
+      "file_size": 5468
+    },
+    {
+      "id": "business-card-front",
+      "category": "stationery",
+      "name": "Business Card — Front",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/business-card-front.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/business-card-front-thumb.png",
+      "width": 1050,
+      "height": 600,
+      "file_size": 37352
+    },
+    {
+      "id": "letterhead-a4",
+      "category": "stationery",
+      "name": "Letterhead A4",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/letterhead-a4.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/letterhead-a4-thumb.png",
+      "width": 2480,
+      "height": 3508,
+      "file_size": 135806
+    },
+    {
+      "id": "email-signature",
+      "category": "stationery",
+      "name": "Email Signature",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/email-signature.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/email-signature-thumb.png",
+      "width": 600,
+      "height": 200,
+      "file_size": 16749
+    },
+    {
+      "id": "invoice-template",
+      "category": "stationery",
+      "name": "Invoice Template",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/invoice-template.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/invoice-template-thumb.png",
+      "width": 1240,
+      "height": 1754,
+      "file_size": 64330
+    },
+    {
+      "id": "instagram-post",
+      "category": "social",
+      "name": "Instagram Post",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/instagram-post.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/instagram-post-thumb.png",
+      "width": 1080,
+      "height": 1080,
+      "file_size": 75478
+    },
+    {
+      "id": "instagram-story",
+      "category": "social",
+      "name": "Instagram Story",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/instagram-story.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/instagram-story-thumb.png",
+      "width": 1080,
+      "height": 1920,
+      "file_size": 84569
+    },
+    {
+      "id": "linkedin-banner",
+      "category": "social",
+      "name": "LinkedIn Banner",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/linkedin-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/linkedin-banner-thumb.png",
+      "width": 1584,
+      "height": 396,
+      "file_size": 34963
+    },
+    {
+      "id": "twitter-header",
+      "category": "social",
+      "name": "Twitter / X Header",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/twitter-header.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/twitter-header-thumb.png",
+      "width": 1500,
+      "height": 500,
+      "file_size": 41258
+    },
+    {
+      "id": "youtube-banner",
+      "category": "social",
+      "name": "YouTube Channel Art",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/youtube-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/youtube-banner-thumb.png",
+      "width": 2560,
+      "height": 1440,
+      "file_size": 135169
+    },
+    {
+      "id": "tshirt-flatlay",
+      "category": "merchandise",
+      "name": "T-Shirt Mockup",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/tshirt-flatlay.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/tshirt-flatlay-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 778084
+    },
+    {
+      "id": "coffee-mug",
+      "category": "merchandise",
+      "name": "Coffee Mug Mockup",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/coffee-mug.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/coffee-mug-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 313943
+    },
+    {
+      "id": "tote-bag",
+      "category": "merchandise",
+      "name": "Tote Bag Mockup",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/tote-bag.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/tote-bag-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 357134
+    },
+    {
+      "id": "sticker-sheet",
+      "category": "merchandise",
+      "name": "Sticker Sheet",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/sticker-sheet.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/sticker-sheet-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 120820
+    },
+    {
+      "id": "storefront-sign",
+      "category": "signage",
+      "name": "Storefront Sign",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/storefront-sign.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/storefront-sign-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 91469
+    },
+    {
+      "id": "billboard-mockup",
+      "category": "signage",
+      "name": "Billboard Mockup",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/billboard-mockup.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/billboard-mockup-thumb.png",
+      "width": 3000,
+      "height": 1500,
+      "file_size": 226810
+    },
+    {
+      "id": "rollup-banner",
+      "category": "signage",
+      "name": "Roll-up Banner",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/rollup-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/rollup-banner-thumb.png",
+      "width": 1080,
+      "height": 2400,
+      "file_size": 102560
+    },
+    {
+      "id": "website-hero",
+      "category": "web",
+      "name": "Website Hero Section",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/website-hero.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/website-hero-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 94226
+    },
+    {
+      "id": "mobile-app-screen",
+      "category": "web",
+      "name": "Mobile App Screen",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/mobile-app-screen.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/mobile-app-screen-thumb.png",
+      "width": 1242,
+      "height": 2688,
+      "file_size": 132564
+    },
+    {
+      "id": "email-newsletter",
+      "category": "web",
+      "name": "Email Newsletter",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/email-newsletter.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/email-newsletter-thumb.png",
+      "width": 600,
+      "height": 800,
+      "file_size": 27714
+    },
+    {
+      "id": "product-box",
+      "category": "packaging",
+      "name": "Product Box (Isometric)",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/product-box.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/product-box-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 306634
+    },
+    {
+      "id": "shopping-bag",
+      "category": "packaging",
+      "name": "Shopping Bag",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/shopping-bag.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/shopping-bag-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 227673
+    },
+    {
+      "id": "pitch-deck-cover",
+      "category": "presentations",
+      "name": "Pitch Deck Cover",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/pitch-deck-cover.png",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/pitch-deck-cover-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 82690
+    },
+    {
+      "id": "brand-guidelines",
+      "category": "documentation",
+      "name": "Brand Guidelines PDF",
+      "url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/brand-guidelines.pdf",
+      "thumbnail_url": "http://localhost:3000/uploads/0f1dac17-4a75-4d28-9c92-9a5321279942/brand-guidelines-thumb.png",
+      "width": null,
+      "height": null,
+      "file_size": 679155
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "id": "test-id",
+  "brand_name": "TestBrand",
+  "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Camponotus_flavomarginatus_ant.jpg/320px-Camponotus_flavomarginatus_ant.jpg",
+  "status": "complete",
+  "progress": 100,
+  "brand_data": {
+    "primaryColors": [
+      {
+        "hex": "#7c3aed",
+        "rgb": {
+          "r": 124,
+          "g": 58,
+          "b": 237
+        },
+        "name": "Electric Violet",
+        "usage": "Primary brand color"
+      }
+    ],
+    "secondaryColors": [
+      {
+        "hex": "#06b6d4",
+        "rgb": {
+          "r": 6,
+          "g": 182,
+          "b": 212
+        },
+        "name": "Cyan Glow",
+        "usage": "Secondary accents"
+      }
+    ],
+    "accentColors": [
+      {
+        "hex": "#fb7185",
+        "rgb": {
+          "r": 251,
+          "g": 113,
+          "b": 133
+        },
+        "name": "Soft Coral",
+        "usage": "Warm accents"
+      }
+    ],
+    "style": "tech",
+    "personality": [
+      "innovative",
+      "trustworthy",
+      "modern",
+      "bold"
+    ],
+    "industry": "Technology",
+    "targetAudience": "Forward-thinking professionals",
+    "fontPairings": [
+      {
+        "heading": "Inter",
+        "body": "Inter",
+        "mood": "Clean, modern",
+        "googleFontsUrl": ""
+      }
+    ],
+    "brandVoice": {
+      "tone": "Confident and clear",
+      "vocabulary": [
+        "innovative",
+        "seamless"
+      ],
+      "examples": [
+        "TestBrand — built for the future."
+      ]
+    },
+    "taglineSuggestions": [
+      "TestBrand — built for what's next.",
+      "Shape the future, today."
+    ],
+    "designPrinciples": [
+      "Clarity over complexity",
+      "Bold but refined"
+    ]
+  },
+  "assets": [],
+  "completed_at": "2026-05-03T14:42:32.439Z",
+  "zip_url": null
+}

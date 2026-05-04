@@ -1,0 +1,208 @@
+{
+  "id": "e65bc442-49d5-406e-92fe-1c8a26eae8f3",
+  "logo_url": "http://localhost:3000/uploads/1777825357291-yb843h4peb.png",
+  "brand_name": "A3",
+  "original_filename": "A3.png",
+  "status": "processing",
+  "progress": 38,
+  "brand_data": {
+    "primaryColors": [
+      {
+        "hex": "#104f20",
+        "rgb": {
+          "r": 16,
+          "g": 79,
+          "b": 32
+        },
+        "name": "Deep Emerald",
+        "usage": "Primary brand colour — use for CTAs, key elements & backgrounds"
+      },
+      {
+        "hex": "#2a5f32",
+        "rgb": {
+          "r": 42,
+          "g": 95,
+          "b": 50
+        },
+        "name": "Deep Forest Green",
+        "usage": "Secondary colour — use for accents, highlights & supporting elements"
+      }
+    ],
+    "secondaryColors": [
+      {
+        "hex": "#1c1e1c",
+        "rgb": {
+          "r": 28,
+          "g": 30,
+          "b": 28
+        },
+        "name": "Deep Shadow",
+        "usage": "Accent colour — use for hover states, badges & decorative touches"
+      },
+      {
+        "hex": "#2c2e2d",
+        "rgb": {
+          "r": 44,
+          "g": 46,
+          "b": 45
+        },
+        "name": "Charcoal",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      }
+    ],
+    "accentColors": [
+      {
+        "hex": "#34703f",
+        "rgb": {
+          "r": 52,
+          "g": 112,
+          "b": 63
+        },
+        "name": "Deep Forest Green",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      },
+      {
+        "hex": "#304848",
+        "rgb": {
+          "r": 51,
+          "g": 63,
+          "b": 63
+        },
+        "name": "Deep Aquamarine",
+        "usage": "Background / neutral — use for surfaces and spacers"
+      }
+    ],
+    "style": "tech",
+    "personality": [
+      "innovative",
+      "trustworthy",
+      "modern",
+      "bold"
+    ],
+    "industry": "Technology",
+    "targetAudience": "Forward-thinking professionals",
+    "fontPairings": [
+      {
+        "heading": "Inter",
+        "body": "Inter",
+        "mood": "Clean, modern",
+        "googleFontsUrl": ""
+      }
+    ],
+    "brandVoice": {
+      "tone": "Confident and clear",
+      "vocabulary": [
+        "innovative",
+        "seamless"
+      ],
+      "examples": [
+        "A3 — built for the future."
+      ]
+    },
+    "taglineSuggestions": [
+      "A3 — built for what's next.",
+      "Shape the future, today."
+    ],
+    "designPrinciples": [
+      "Clarity over complexity",
+      "Bold but refined"
+    ]
+  },
+  "zip_url": null,
+  "created_at": "2026-05-03T16:22:37.303Z",
+  "completed_at": null,
+  "error_message": null,
+  "user_id": "dev-user",
+  "assets": [
+    {
+      "id": "logo-original",
+      "category": "logos",
+      "name": "Logo — Original",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-original.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-original-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 734472
+    },
+    {
+      "id": "logo-white",
+      "category": "logos",
+      "name": "Logo — White",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-white.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-white-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 501503
+    },
+    {
+      "id": "logo-black",
+      "category": "logos",
+      "name": "Logo — Black",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-black.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-black-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 501530
+    },
+    {
+      "id": "logo-monochrome",
+      "category": "logos",
+      "name": "Logo — Monochrome",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-monochrome.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-monochrome-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 501096
+    },
+    {
+      "id": "logo-favicon-pack",
+      "category": "logos",
+      "name": "Favicon Pack (512px)",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-favicon-pack.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/logo-favicon-pack-thumb.png",
+      "width": 512,
+      "height": 512,
+      "file_size": 20819
+    },
+    {
+      "id": "instagram-profile",
+      "category": "social",
+      "name": "Instagram Profile Photo",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/instagram-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/instagram-profile-thumb.png",
+      "width": 320,
+      "height": 320,
+      "file_size": 6177
+    },
+    {
+      "id": "twitter-profile",
+      "category": "social",
+      "name": "Twitter / X Profile Photo",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/twitter-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/twitter-profile-thumb.png",
+      "width": 400,
+      "height": 400,
+      "file_size": 9542
+    },
+    {
+      "id": "facebook-profile",
+      "category": "social",
+      "name": "Facebook Profile Photo",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/facebook-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/facebook-profile-thumb.png",
+      "width": 170,
+      "height": 170,
+      "file_size": 2146
+    },
+    {
+      "id": "business-card-front",
+      "category": "stationery",
+      "name": "Business Card — Front",
+      "url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/business-card-front.png",
+      "thumbnail_url": "http://localhost:3000/uploads/e65bc442-49d5-406e-92fe-1c8a26eae8f3/business-card-front-thumb.png",
+      "width": 1050,
+      "height": 600,
+      "file_size": 47339
+    }
+  ]
+}

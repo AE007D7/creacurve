@@ -1,0 +1,214 @@
+{
+  "id": "test-real-1777819391",
+  "brand_name": "TestBrand",
+  "logo_url": "http://localhost:3000/uploads/1777807793799-zdv1d6rnu1g.png",
+  "status": "complete",
+  "progress": 100,
+  "brand_data": {
+    "primaryColors": [
+      {
+        "hex": "#7c3aed",
+        "rgb": {
+          "r": 124,
+          "g": 58,
+          "b": 237
+        },
+        "name": "Electric Violet",
+        "usage": "Primary brand color"
+      }
+    ],
+    "secondaryColors": [
+      {
+        "hex": "#06b6d4",
+        "rgb": {
+          "r": 6,
+          "g": 182,
+          "b": 212
+        },
+        "name": "Cyan Glow",
+        "usage": "Secondary accents"
+      }
+    ],
+    "accentColors": [
+      {
+        "hex": "#fb7185",
+        "rgb": {
+          "r": 251,
+          "g": 113,
+          "b": 133
+        },
+        "name": "Soft Coral",
+        "usage": "Warm accents"
+      }
+    ],
+    "style": "tech",
+    "personality": [
+      "innovative",
+      "trustworthy",
+      "modern",
+      "bold"
+    ],
+    "industry": "Technology",
+    "targetAudience": "Forward-thinking professionals",
+    "fontPairings": [
+      {
+        "heading": "Inter",
+        "body": "Inter",
+        "mood": "Clean, modern",
+        "googleFontsUrl": ""
+      }
+    ],
+    "brandVoice": {
+      "tone": "Confident and clear",
+      "vocabulary": [
+        "innovative",
+        "seamless"
+      ],
+      "examples": [
+        "TestBrand — built for the future."
+      ]
+    },
+    "taglineSuggestions": [
+      "TestBrand — built for what's next.",
+      "Shape the future, today."
+    ],
+    "designPrinciples": [
+      "Clarity over complexity",
+      "Bold but refined"
+    ]
+  },
+  "assets": [
+    {
+      "id": "logo-original",
+      "category": "logos",
+      "name": "Logo Original",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/logo-original.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/logo-original-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 953716
+    },
+    {
+      "id": "logo-white",
+      "category": "logos",
+      "name": "Logo White",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/logo-white.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/logo-white-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 20402
+    },
+    {
+      "id": "logo-black",
+      "category": "logos",
+      "name": "Logo Black",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/logo-black.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/logo-black-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 23524
+    },
+    {
+      "id": "logo-monochrome",
+      "category": "logos",
+      "name": "Logo Monochrome",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/logo-monochrome.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/logo-monochrome-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 470489
+    },
+    {
+      "id": "logo-favicon-pack",
+      "category": "logos",
+      "name": "Favicon Pack",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/logo-favicon-pack.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/logo-favicon-pack-thumb.png",
+      "width": 512,
+      "height": 512,
+      "file_size": 137625
+    },
+    {
+      "id": "instagram-profile",
+      "category": "social",
+      "name": "Instagram Profile",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/instagram-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/instagram-profile-thumb.png",
+      "width": 1080,
+      "height": 1080,
+      "file_size": 256888
+    },
+    {
+      "id": "business-card-front",
+      "category": "stationery",
+      "name": "Business Card Front",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/business-card-front.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/business-card-front-thumb.png",
+      "width": 1050,
+      "height": 600,
+      "file_size": 110044
+    },
+    {
+      "id": "tshirt-flatlay",
+      "category": "merchandise",
+      "name": "T-Shirt Mockup",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/tshirt-flatlay.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/tshirt-flatlay-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 363378
+    },
+    {
+      "id": "storefront-sign",
+      "category": "signage",
+      "name": "Storefront Sign",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/storefront-sign.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/storefront-sign-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 199259
+    },
+    {
+      "id": "website-hero",
+      "category": "web",
+      "name": "Website Hero Section",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/website-hero.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/website-hero-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 198802
+    },
+    {
+      "id": "instagram-post",
+      "category": "social",
+      "name": "Instagram Post",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/instagram-post.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/instagram-post-thumb.png",
+      "width": 1080,
+      "height": 1080,
+      "file_size": 172594
+    },
+    {
+      "id": "product-box",
+      "category": "packaging",
+      "name": "Product Box",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/product-box.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/product-box-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 362653
+    },
+    {
+      "id": "brand-guidelines",
+      "category": "documentation",
+      "name": "Brand Guidelines PDF",
+      "url": "http://localhost:3000/uploads/test-real-1777819391/brand-guidelines.pdf",
+      "thumbnail_url": "http://localhost:3000/uploads/test-real-1777819391/brand-guidelines-thumb.png",
+      "width": null,
+      "height": null,
+      "file_size": 6583
+    }
+  ],
+  "completed_at": "2026-05-03T14:43:16.843Z",
+  "zip_url": null
+}

@@ -1,0 +1,424 @@
+{
+  "id": "test-colors2-1777820849",
+  "brand_name": "Nexora",
+  "logo_url": "http://localhost:3000/uploads/1777807793799-zdv1d6rnu1g.png",
+  "status": "complete",
+  "progress": 100,
+  "brand_data": {
+    "primaryColors": [
+      {
+        "hex": "#fefefe",
+        "rgb": {
+          "r": 254,
+          "g": 254,
+          "b": 254
+        },
+        "name": "Soft White",
+        "usage": "Primary brand colour — use for CTAs, key elements & backgrounds"
+      },
+      {
+        "hex": "#1e4f7b",
+        "rgb": {
+          "r": 30,
+          "g": 79,
+          "b": 123
+        },
+        "name": "Deep Azure",
+        "usage": "Secondary colour — use for accents, highlights & supporting elements"
+      }
+    ],
+    "secondaryColors": [
+      {
+        "hex": "#093561",
+        "rgb": {
+          "r": 9,
+          "g": 53,
+          "b": 97
+        },
+        "name": "Deep Cobalt",
+        "usage": "Accent colour — use for hover states, badges & decorative touches"
+      },
+      {
+        "hex": "#00194d",
+        "rgb": {
+          "r": 0,
+          "g": 25,
+          "b": 77
+        },
+        "name": "Deep Sky Blue",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      }
+    ],
+    "accentColors": [
+      {
+        "hex": "#d3d8df",
+        "rgb": {
+          "r": 211,
+          "g": 216,
+          "b": 223
+        },
+        "name": "Light Azure",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      },
+      {
+        "hex": "#7790aa",
+        "rgb": {
+          "r": 119,
+          "g": 144,
+          "b": 170
+        },
+        "name": "Cobalt",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      },
+      {
+        "hex": "#2e5e89",
+        "rgb": {
+          "r": 46,
+          "g": 94,
+          "b": 137
+        },
+        "name": "Sky Blue",
+        "usage": "Background / neutral — use for surfaces and spacers"
+      }
+    ],
+    "style": "tech",
+    "personality": [
+      "innovative",
+      "trustworthy",
+      "modern",
+      "bold"
+    ],
+    "industry": "Technology",
+    "targetAudience": "Forward-thinking professionals",
+    "fontPairings": [
+      {
+        "heading": "Inter",
+        "body": "Inter",
+        "mood": "Clean, modern",
+        "googleFontsUrl": ""
+      }
+    ],
+    "brandVoice": {
+      "tone": "Confident and clear",
+      "vocabulary": [
+        "innovative",
+        "seamless"
+      ],
+      "examples": [
+        "Nexora — built for the future."
+      ]
+    },
+    "taglineSuggestions": [
+      "Nexora — built for what's next.",
+      "Shape the future, today."
+    ],
+    "designPrinciples": [
+      "Clarity over complexity",
+      "Bold but refined"
+    ]
+  },
+  "assets": [
+    {
+      "id": "logo-original",
+      "category": "logos",
+      "name": "Logo — Original",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-original.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-original-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 953716
+    },
+    {
+      "id": "logo-white",
+      "category": "logos",
+      "name": "Logo — White",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-white.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-white-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 20402
+    },
+    {
+      "id": "logo-black",
+      "category": "logos",
+      "name": "Logo — Black",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-black.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-black-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 23524
+    },
+    {
+      "id": "logo-monochrome",
+      "category": "logos",
+      "name": "Logo — Monochrome",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-monochrome.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-monochrome-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 470489
+    },
+    {
+      "id": "logo-favicon-pack",
+      "category": "logos",
+      "name": "Favicon Pack (512px)",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-favicon-pack.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/logo-favicon-pack-thumb.png",
+      "width": 512,
+      "height": 512,
+      "file_size": 137625
+    },
+    {
+      "id": "instagram-profile",
+      "category": "social",
+      "name": "Instagram Profile Photo",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/instagram-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/instagram-profile-thumb.png",
+      "width": 320,
+      "height": 320,
+      "file_size": 24965
+    },
+    {
+      "id": "twitter-profile",
+      "category": "social",
+      "name": "Twitter / X Profile Photo",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/twitter-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/twitter-profile-thumb.png",
+      "width": 400,
+      "height": 400,
+      "file_size": 44605
+    },
+    {
+      "id": "facebook-profile",
+      "category": "social",
+      "name": "Facebook Profile Photo",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/facebook-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/facebook-profile-thumb.png",
+      "width": 170,
+      "height": 170,
+      "file_size": 9433
+    },
+    {
+      "id": "business-card-front",
+      "category": "stationery",
+      "name": "Business Card — Front",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/business-card-front.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/business-card-front-thumb.png",
+      "width": 1050,
+      "height": 600,
+      "file_size": 65922
+    },
+    {
+      "id": "letterhead-a4",
+      "category": "stationery",
+      "name": "Letterhead A4",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/letterhead-a4.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/letterhead-a4-thumb.png",
+      "width": 2480,
+      "height": 3508,
+      "file_size": 212268
+    },
+    {
+      "id": "email-signature",
+      "category": "stationery",
+      "name": "Email Signature",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/email-signature.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/email-signature-thumb.png",
+      "width": 600,
+      "height": 200,
+      "file_size": 22732
+    },
+    {
+      "id": "invoice-template",
+      "category": "stationery",
+      "name": "Invoice Template",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/invoice-template.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/invoice-template-thumb.png",
+      "width": 1240,
+      "height": 1754,
+      "file_size": 67533
+    },
+    {
+      "id": "instagram-post",
+      "category": "social",
+      "name": "Instagram Post",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/instagram-post.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/instagram-post-thumb.png",
+      "width": 1080,
+      "height": 1080,
+      "file_size": 298796
+    },
+    {
+      "id": "linkedin-banner",
+      "category": "social",
+      "name": "LinkedIn Banner",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/linkedin-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/linkedin-banner-thumb.png",
+      "width": 1584,
+      "height": 396,
+      "file_size": 94410
+    },
+    {
+      "id": "twitter-header",
+      "category": "social",
+      "name": "Twitter / X Header",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/twitter-header.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/twitter-header-thumb.png",
+      "width": 1500,
+      "height": 500,
+      "file_size": 111393
+    },
+    {
+      "id": "youtube-banner",
+      "category": "social",
+      "name": "YouTube Channel Art",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/youtube-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/youtube-banner-thumb.png",
+      "width": 2560,
+      "height": 1440,
+      "file_size": 349546
+    },
+    {
+      "id": "tshirt-flatlay",
+      "category": "merchandise",
+      "name": "T-Shirt Mockup",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/tshirt-flatlay.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/tshirt-flatlay-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 176526
+    },
+    {
+      "id": "coffee-mug",
+      "category": "merchandise",
+      "name": "Coffee Mug Mockup",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/coffee-mug.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/coffee-mug-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 216286
+    },
+    {
+      "id": "tote-bag",
+      "category": "merchandise",
+      "name": "Tote Bag Mockup",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/tote-bag.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/tote-bag-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 168461
+    },
+    {
+      "id": "sticker-sheet",
+      "category": "merchandise",
+      "name": "Sticker Sheet",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/sticker-sheet.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/sticker-sheet-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 171029
+    },
+    {
+      "id": "storefront-sign",
+      "category": "signage",
+      "name": "Storefront Sign",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/storefront-sign.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/storefront-sign-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 147305
+    },
+    {
+      "id": "billboard-mockup",
+      "category": "signage",
+      "name": "Billboard Mockup",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/billboard-mockup.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/billboard-mockup-thumb.png",
+      "width": 3000,
+      "height": 1500,
+      "file_size": 286802
+    },
+    {
+      "id": "rollup-banner",
+      "category": "signage",
+      "name": "Roll-up Banner",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/rollup-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/rollup-banner-thumb.png",
+      "width": 1080,
+      "height": 2400,
+      "file_size": 214129
+    },
+    {
+      "id": "website-hero",
+      "category": "web",
+      "name": "Website Hero Section",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/website-hero.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/website-hero-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 314572
+    },
+    {
+      "id": "mobile-app-screen",
+      "category": "web",
+      "name": "Mobile App Screen",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/mobile-app-screen.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/mobile-app-screen-thumb.png",
+      "width": 1242,
+      "height": 2688,
+      "file_size": 130944
+    },
+    {
+      "id": "email-newsletter",
+      "category": "web",
+      "name": "Email Newsletter",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/email-newsletter.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/email-newsletter-thumb.png",
+      "width": 600,
+      "height": 800,
+      "file_size": 31678
+    },
+    {
+      "id": "product-box",
+      "category": "packaging",
+      "name": "Product Box (Isometric)",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/product-box.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/product-box-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 181551
+    },
+    {
+      "id": "shopping-bag",
+      "category": "packaging",
+      "name": "Shopping Bag",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/shopping-bag.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/shopping-bag-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 259662
+    },
+    {
+      "id": "pitch-deck-cover",
+      "category": "presentations",
+      "name": "Pitch Deck Cover",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/pitch-deck-cover.png",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/pitch-deck-cover-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 185232
+    },
+    {
+      "id": "brand-guidelines",
+      "category": "documentation",
+      "name": "Brand Guidelines PDF",
+      "url": "http://localhost:3000/uploads/test-colors2-1777820849/brand-guidelines.pdf",
+      "thumbnail_url": "http://localhost:3000/uploads/test-colors2-1777820849/brand-guidelines-thumb.png",
+      "width": null,
+      "height": null,
+      "file_size": 15678629
+    }
+  ],
+  "completed_at": "2026-05-03T15:07:45.487Z",
+  "zip_url": null
+}

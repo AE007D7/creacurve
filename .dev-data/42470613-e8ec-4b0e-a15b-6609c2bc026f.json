@@ -1,0 +1,14 @@
+{
+  "id": "42470613-e8ec-4b0e-a15b-6609c2bc026f",
+  "logo_url": "http://localhost:3000/uploads/1777807911703-ukn7dis1fc9.png",
+  "brand_name": "A6",
+  "original_filename": "A6.png",
+  "status": "processing",
+  "progress": 0,
+  "brand_data": null,
+  "zip_url": null,
+  "created_at": "2026-05-03T11:31:51.722Z",
+  "completed_at": null,
+  "error_message": null,
+  "user_id": "dev-user"
+}

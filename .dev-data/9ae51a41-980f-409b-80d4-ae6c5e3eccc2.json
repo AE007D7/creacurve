@@ -1,0 +1,428 @@
+{
+  "id": "9ae51a41-980f-409b-80d4-ae6c5e3eccc2",
+  "logo_url": "http://localhost:3000/uploads/1777828975432-mn28vjb5bx8.png",
+  "brand_name": "A3",
+  "original_filename": "A3.png",
+  "status": "complete",
+  "progress": 100,
+  "brand_data": {
+    "primaryColors": [
+      {
+        "hex": "#104f20",
+        "rgb": {
+          "r": 16,
+          "g": 79,
+          "b": 32
+        },
+        "name": "Deep Emerald",
+        "usage": "Primary brand colour — use for CTAs, key elements & backgrounds"
+      },
+      {
+        "hex": "#2a5f32",
+        "rgb": {
+          "r": 42,
+          "g": 95,
+          "b": 50
+        },
+        "name": "Deep Forest Green",
+        "usage": "Secondary colour — use for accents, highlights & supporting elements"
+      }
+    ],
+    "secondaryColors": [
+      {
+        "hex": "#1c1e1c",
+        "rgb": {
+          "r": 28,
+          "g": 30,
+          "b": 28
+        },
+        "name": "Deep Shadow",
+        "usage": "Accent colour — use for hover states, badges & decorative touches"
+      },
+      {
+        "hex": "#2c2e2d",
+        "rgb": {
+          "r": 44,
+          "g": 46,
+          "b": 45
+        },
+        "name": "Charcoal",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      }
+    ],
+    "accentColors": [
+      {
+        "hex": "#34703f",
+        "rgb": {
+          "r": 52,
+          "g": 112,
+          "b": 63
+        },
+        "name": "Deep Forest Green",
+        "usage": "Supporting colour — use sparingly for variety and emphasis"
+      },
+      {
+        "hex": "#304848",
+        "rgb": {
+          "r": 51,
+          "g": 63,
+          "b": 63
+        },
+        "name": "Deep Aquamarine",
+        "usage": "Background / neutral — use for surfaces and spacers"
+      }
+    ],
+    "style": "tech",
+    "personality": [
+      "innovative",
+      "trustworthy",
+      "modern",
+      "bold"
+    ],
+    "industry": "Technology",
+    "targetAudience": "Forward-thinking professionals",
+    "fontPairings": [
+      {
+        "heading": "Inter",
+        "body": "Inter",
+        "mood": "Clean, modern",
+        "googleFontsUrl": ""
+      }
+    ],
+    "brandVoice": {
+      "tone": "Confident and clear",
+      "vocabulary": [
+        "innovative",
+        "seamless"
+      ],
+      "examples": [
+        "A3 — built for the future."
+      ]
+    },
+    "taglineSuggestions": [
+      "A3 — built for what's next.",
+      "Shape the future, today."
+    ],
+    "designPrinciples": [
+      "Clarity over complexity",
+      "Bold but refined"
+    ]
+  },
+  "zip_url": null,
+  "created_at": "2026-05-03T17:22:55.457Z",
+  "completed_at": "2026-05-03T17:23:19.115Z",
+  "error_message": null,
+  "user_id": "dev-user",
+  "assets": [
+    {
+      "id": "logo-original",
+      "category": "logos",
+      "name": "Logo — Original",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-original.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-original-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 734472
+    },
+    {
+      "id": "logo-white",
+      "category": "logos",
+      "name": "Logo — White",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-white.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-white-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 501503
+    },
+    {
+      "id": "logo-black",
+      "category": "logos",
+      "name": "Logo — Black",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-black.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-black-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 501530
+    },
+    {
+      "id": "logo-monochrome",
+      "category": "logos",
+      "name": "Logo — Monochrome",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-monochrome.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-monochrome-thumb.png",
+      "width": 800,
+      "height": 400,
+      "file_size": 501096
+    },
+    {
+      "id": "logo-favicon-pack",
+      "category": "logos",
+      "name": "Favicon Pack (512px)",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-favicon-pack.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/logo-favicon-pack-thumb.png",
+      "width": 512,
+      "height": 512,
+      "file_size": 20819
+    },
+    {
+      "id": "instagram-profile",
+      "category": "social",
+      "name": "Instagram Profile Photo",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/instagram-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/instagram-profile-thumb.png",
+      "width": 320,
+      "height": 320,
+      "file_size": 6177
+    },
+    {
+      "id": "twitter-profile",
+      "category": "social",
+      "name": "Twitter / X Profile Photo",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/twitter-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/twitter-profile-thumb.png",
+      "width": 400,
+      "height": 400,
+      "file_size": 9542
+    },
+    {
+      "id": "facebook-profile",
+      "category": "social",
+      "name": "Facebook Profile Photo",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/facebook-profile.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/facebook-profile-thumb.png",
+      "width": 170,
+      "height": 170,
+      "file_size": 2146
+    },
+    {
+      "id": "business-card-front",
+      "category": "stationery",
+      "name": "Business Card — Front",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/business-card-front.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/business-card-front-thumb.png",
+      "width": 1050,
+      "height": 600,
+      "file_size": 47339
+    },
+    {
+      "id": "letterhead-a4",
+      "category": "stationery",
+      "name": "Letterhead A4",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/letterhead-a4.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/letterhead-a4-thumb.png",
+      "width": 2480,
+      "height": 3508,
+      "file_size": 146864
+    },
+    {
+      "id": "email-signature",
+      "category": "stationery",
+      "name": "Email Signature",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/email-signature.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/email-signature-thumb.png",
+      "width": 600,
+      "height": 200,
+      "file_size": 6122
+    },
+    {
+      "id": "invoice-template",
+      "category": "stationery",
+      "name": "Invoice Template",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/invoice-template.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/invoice-template-thumb.png",
+      "width": 1240,
+      "height": 1754,
+      "file_size": 54819
+    },
+    {
+      "id": "instagram-post",
+      "category": "social",
+      "name": "Instagram Post",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/instagram-post.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/instagram-post-thumb.png",
+      "width": 1080,
+      "height": 1080,
+      "file_size": 181304
+    },
+    {
+      "id": "instagram-story",
+      "category": "social",
+      "name": "Instagram Story",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/instagram-story.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/instagram-story-thumb.png",
+      "width": 1080,
+      "height": 1920,
+      "file_size": 222664
+    },
+    {
+      "id": "linkedin-banner",
+      "category": "social",
+      "name": "LinkedIn Banner",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/linkedin-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/linkedin-banner-thumb.png",
+      "width": 1584,
+      "height": 396,
+      "file_size": 34838
+    },
+    {
+      "id": "twitter-header",
+      "category": "social",
+      "name": "Twitter / X Header",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/twitter-header.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/twitter-header-thumb.png",
+      "width": 1500,
+      "height": 500,
+      "file_size": 65832
+    },
+    {
+      "id": "youtube-banner",
+      "category": "social",
+      "name": "YouTube Channel Art",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/youtube-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/youtube-banner-thumb.png",
+      "width": 2560,
+      "height": 1440,
+      "file_size": 233768
+    },
+    {
+      "id": "tshirt-flatlay",
+      "category": "merchandise",
+      "name": "T-Shirt Mockup",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/tshirt-flatlay.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/tshirt-flatlay-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 772312
+    },
+    {
+      "id": "coffee-mug",
+      "category": "merchandise",
+      "name": "Coffee Mug Mockup",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/coffee-mug.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/coffee-mug-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 290644
+    },
+    {
+      "id": "tote-bag",
+      "category": "merchandise",
+      "name": "Tote Bag Mockup",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/tote-bag.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/tote-bag-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 433456
+    },
+    {
+      "id": "sticker-sheet",
+      "category": "merchandise",
+      "name": "Sticker Sheet",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/sticker-sheet.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/sticker-sheet-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 95713
+    },
+    {
+      "id": "storefront-sign",
+      "category": "signage",
+      "name": "Storefront Sign",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/storefront-sign.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/storefront-sign-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 106867
+    },
+    {
+      "id": "billboard-mockup",
+      "category": "signage",
+      "name": "Billboard Mockup",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/billboard-mockup.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/billboard-mockup-thumb.png",
+      "width": 3000,
+      "height": 1500,
+      "file_size": 292142
+    },
+    {
+      "id": "rollup-banner",
+      "category": "signage",
+      "name": "Roll-up Banner",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/rollup-banner.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/rollup-banner-thumb.png",
+      "width": 1080,
+      "height": 2400,
+      "file_size": 83525
+    },
+    {
+      "id": "website-hero",
+      "category": "web",
+      "name": "Website Hero Section",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/website-hero.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/website-hero-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 149809
+    },
+    {
+      "id": "mobile-app-screen",
+      "category": "web",
+      "name": "Mobile App Screen",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/mobile-app-screen.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/mobile-app-screen-thumb.png",
+      "width": 1242,
+      "height": 2688,
+      "file_size": 183208
+    },
+    {
+      "id": "email-newsletter",
+      "category": "web",
+      "name": "Email Newsletter",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/email-newsletter.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/email-newsletter-thumb.png",
+      "width": 600,
+      "height": 800,
+      "file_size": 17967
+    },
+    {
+      "id": "product-box",
+      "category": "packaging",
+      "name": "Product Box (Isometric)",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/product-box.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/product-box-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 298398
+    },
+    {
+      "id": "shopping-bag",
+      "category": "packaging",
+      "name": "Shopping Bag",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/shopping-bag.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/shopping-bag-thumb.png",
+      "width": 1500,
+      "height": 1500,
+      "file_size": 242104
+    },
+    {
+      "id": "pitch-deck-cover",
+      "category": "presentations",
+      "name": "Pitch Deck Cover",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/pitch-deck-cover.png",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/pitch-deck-cover-thumb.png",
+      "width": 1920,
+      "height": 1080,
+      "file_size": 156835
+    },
+    {
+      "id": "brand-guidelines",
+      "category": "documentation",
+      "name": "Brand Guidelines PDF",
+      "url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/brand-guidelines.pdf",
+      "thumbnail_url": "http://localhost:3000/uploads/9ae51a41-980f-409b-80d4-ae6c5e3eccc2/brand-guidelines-thumb.png",
+      "width": null,
+      "height": null,
+      "file_size": 7309023
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "2280d454-2098-4647-b08b-22470468fbd4",
+  "logo_url": "http://localhost:3000/uploads/1777819275550-01w845h2x1o.png",
+  "brand_name": "Noche",
+  "original_filename": "image.png",
+  "status": "complete",
+  "progress": 100,
+  "brand_data": {
+    "primaryColors": [
+      {
+        "hex": "#7c3aed",
+        "rgb": {
+          "r": 124,
+          "g": 58,
+          "b": 237
+        },
+        "name": "Electric Violet",
+        "usage": "Primary brand color for CTAs and key elements"
+      }
+    ],
+    "secondaryColors": [
+      {
+        "hex": "#06b6d4",
+        "rgb": {
+          "r": 6,
+          "g": 182,
+          "b": 212
+        },
+        "name": "Cyan Glow",
+        "usage": "Secondary accents and highlights"
+      }
+    ],
+    "accentColors": [
+      {
+        "hex": "#fb7185",
+        "rgb": {
+          "r": 251,
+          "g": 113,
+          "b": 133
+        },
+        "name": "Soft Coral",
+        "usage": "Warm accents and call-to-actions"
+      }
+    ],
+    "style": "tech",
+    "personality": [
+      "innovative",
+      "trustworthy",
+      "modern",
+      "bold",
+      "dynamic"
+    ],
+    "industry": "Technology",
+    "targetAudience": "Forward-thinking professionals and entrepreneurs aged 25-45",
+    "fontPairings": [
+      {
+        "heading": "Inter",
+        "body": "Inter",
+        "mood": "Clean, modern, highly legible",
+        "googleFontsUrl": "https://fonts.google.com/specimen/Inter"
+      }
+    ],
+    "brandVoice": {
+      "tone": "Confident, clear, and empowering",
+      "vocabulary": [
+        "innovative",
+        "seamless",
+        "powerful",
+        "effortless",
+        "transform"
+      ],
+      "examples": [
+        "Noche — built for the future.",
+        "Where ideas become reality."
+      ]
+    },
+    "taglineSuggestions": [
+      "Noche — built for what's next.",
+      "Shape the future, today.",
+      "Your vision, amplified."
+    ],
+    "designPrinciples": [
+      "Clarity over complexity",
+      "Bold but refined",
+      "Consistent visual language",
+      "Premium at every touchpoint"
+    ]
+  },
+  "zip_url": null,
+  "created_at": "2026-05-03T14:41:15.573Z",
+  "completed_at": "2026-05-03T14:41:29.911Z",
+  "error_message": null,
+  "user_id": "dev-user"
+}
