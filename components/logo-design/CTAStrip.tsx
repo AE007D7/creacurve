@@ -68,12 +68,6 @@ export default function CTAStrip() {
             >
               Start your project
             </button>
-            <a
-              href="tel:+18001234567"
-              className="text-sm text-gray-500 hover:text-white transition-colors duration-200"
-            >
-              or call +1 (800) 123-4567
-            </a>
           </div>
 
           {/* Trust row */}
