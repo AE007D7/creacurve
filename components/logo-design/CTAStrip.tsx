@@ -1,11 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-function scrollTo(id: string) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
-}
+import { openChat } from "@/lib/chat";
 
 export default function CTAStrip() {
   return (
@@ -67,7 +63,7 @@ export default function CTAStrip() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
-              onClick={() => scrollTo("lead-form")}
+              onClick={openChat}
               className="bg-white text-gray-900 font-semibold px-9 py-4 rounded-xl hover:bg-gray-100 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 text-sm"
             >
               Start your project

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { openChat } from "@/lib/chat";
 
 function scrollTo(id: string) {
   const el = document.getElementById(id);
@@ -68,7 +69,7 @@ export default function Nav() {
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
           <button
-            onClick={() => scrollTo("lead-form")}
+            onClick={openChat}
             className="text-sm font-semibold px-4 py-2 rounded-lg text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 hover:opacity-90"
             style={{ background: "linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)" }}
           >

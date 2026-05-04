@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { openChat } from "@/lib/chat";
 
 function scrollTo(id: string) {
   const el = document.getElementById(id);
@@ -76,7 +77,7 @@ export default function Hero() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <button
-                onClick={() => scrollTo("lead-form")}
+                onClick={openChat}
                 className="bg-gray-900 text-white font-medium px-7 py-3.5 rounded-lg hover:bg-gray-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 text-sm"
               >
                 Get started — it&apos;s free

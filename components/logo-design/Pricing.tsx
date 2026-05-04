@@ -2,11 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-
-function scrollTo(id: string) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth" });
-}
+import { openChat } from "@/lib/chat";
 
 interface Plan {
   name: string;
@@ -167,7 +163,7 @@ export default function Pricing() {
 
               {/* CTA */}
               <button
-                onClick={() => scrollTo("lead-form")}
+                onClick={openChat}
                 className={`w-full font-semibold py-3.5 rounded-xl text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                   plan.popular
                     ? "bg-white text-gray-900 hover:bg-gray-100 focus:ring-white"
