@@ -25,6 +25,9 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: "a9iSpI2SBxC9-qRdPp0pJ21hJyOHmFd-EaOQwDEnwAw",
+  },
   title: "CreaCurve — From logo to launch-ready in 90 seconds",
   description:
     "Upload your logo. Get 60+ professional brand assets — print, web, social, merchandise & more. One-time $29, lifetime access.",
