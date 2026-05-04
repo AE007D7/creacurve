@@ -98,8 +98,9 @@ export default function LeadForm() {
       } else {
         setSuccess(true);
       }
-    } catch {
-      setError("Network error. Please check your connection and try again.");
+    } catch (err) {
+      console.error("[LeadForm]", err);
+      setError("Something went wrong. Please try again or email us directly.");
     } finally {
       setLoading(false);
     }

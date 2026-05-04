@@ -14,6 +14,7 @@ const ContactSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  // Parse body
   let body: unknown;
   try {
     body = await request.json();
@@ -21,16 +22,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false, message: "Invalid request." }, { status: 400 });
   }
 
+  // Validate
   const parsed = ContactSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ success: false, message: parsed.error.message }, { status: 400 });
+    return NextResponse.json({ success: false, message: "Please fill in all required fields." }, { status: 400 });
   }
 
   const d = parsed.data;
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  // Check key exists
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey || apiKey === "your_key_here") {
+    console.error("[contact] RESEND_API_KEY is not configured");
+    return NextResponse.json({ success: false, message: "Email service is not configured yet." }, { status: 503 });
+  }
 
+  // Send email — all errors caught and returned as JSON
   try {
+    const resend = new Resend(apiKey);
     await resend.emails.send({
       from:    "CreaCurve <onboarding@resend.dev>",
       to:      "ayoubelkihel7@gmail.com",
@@ -42,13 +51,13 @@ export async function POST(request: NextRequest) {
             New contact form submission
           </h2>
           <table cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px">
-            <tr><td style="padding:8px 0;color:#666;width:140px">Name</td>        <td style="padding:8px 0;font-weight:600">${esc(d.name)}</td></tr>
-            <tr><td style="padding:8px 0;color:#666">Email</td>       <td style="padding:8px 0"><a href="mailto:${esc(d.email)}" style="color:#7c3aed">${esc(d.email)}</a></td></tr>
-            <tr><td style="padding:8px 0;color:#666">Phone</td>       <td style="padding:8px 0">${esc(d.phone ?? "—")}</td></tr>
-            <tr><td style="padding:8px 0;color:#666">Service</td>     <td style="padding:8px 0">${esc(d.service)}</td></tr>
-            <tr><td style="padding:8px 0;color:#666">Industry</td>    <td style="padding:8px 0">${esc(d.industry)}</td></tr>
-            <tr><td style="padding:8px 0;color:#666">Budget</td>      <td style="padding:8px 0">${esc(d.budgetRange)}</td></tr>
-            <tr><td style="padding:8px 0;color:#666">Source</td>      <td style="padding:8px 0">${esc(d.source ?? "form")}</td></tr>
+            <tr><td style="padding:8px 0;color:#666;width:140px">Name</td>    <td style="padding:8px 0;font-weight:600">${esc(d.name)}</td></tr>
+            <tr><td style="padding:8px 0;color:#666">Email</td>               <td style="padding:8px 0"><a href="mailto:${esc(d.email)}" style="color:#7c3aed">${esc(d.email)}</a></td></tr>
+            <tr><td style="padding:8px 0;color:#666">Phone</td>               <td style="padding:8px 0">${esc(d.phone ?? "—")}</td></tr>
+            <tr><td style="padding:8px 0;color:#666">Service</td>             <td style="padding:8px 0">${esc(d.service)}</td></tr>
+            <tr><td style="padding:8px 0;color:#666">Industry</td>            <td style="padding:8px 0">${esc(d.industry)}</td></tr>
+            <tr><td style="padding:8px 0;color:#666">Budget</td>              <td style="padding:8px 0">${esc(d.budgetRange)}</td></tr>
+            <tr><td style="padding:8px 0;color:#666">Source</td>              <td style="padding:8px 0">${esc(d.source ?? "form")}</td></tr>
             <tr>
               <td style="padding:8px 0;color:#666;vertical-align:top">Details</td>
               <td style="padding:8px 0;white-space:pre-wrap">${esc(d.projectDetails ?? "—")}</td>
