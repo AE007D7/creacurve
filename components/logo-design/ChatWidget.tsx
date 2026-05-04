@@ -2,21 +2,12 @@
 
 import { useEffect } from "react";
 
-declare global {
-  interface Window {
-    zE?: (...args: unknown[]) => void;
-  }
-}
-
-const ZENDESK_KEY = process.env.NEXT_PUBLIC_ZENDESK_KEY ?? "";
-
 export default function ChatWidget() {
   useEffect(() => {
-    if (!ZENDESK_KEY || document.getElementById("ze-snippet")) return;
-
+    if (document.getElementById("tidio-script")) return;
     const script = document.createElement("script");
-    script.id = "ze-snippet";
-    script.src = `https://static.zdassets.com/ekr/snippet.js?key=${ZENDESK_KEY}`;
+    script.id = "tidio-script";
+    script.src = "//code.tidio.co/08la8wvnfrvhn1fsqjzgpz0pbsmmim6n.js";
     script.async = true;
     document.body.appendChild(script);
   }, []);
