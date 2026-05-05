@@ -84,7 +84,7 @@ export default function CTAStrip() {
 
           {/* Trust row */}
           <div className="mt-12 flex items-center justify-center gap-6 flex-wrap">
-            {["Free consultation", "Reply in 24h", "100% money-back"].map((item) => (
+            {["Free consultation", "Instant reply", "100% money-back"].map((item) => (
               <span key={item} className="flex items-center gap-2 text-xs text-gray-500">
                 <span className="w-1 h-1 rounded-full bg-violet-500" />
                 {item}
