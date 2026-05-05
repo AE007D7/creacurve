@@ -24,26 +24,74 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+const BASE        = "https://creacurve.com";
+const TITLE       = "CreaCurve — Brand Kit Generator: 60+ Assets in 90 Seconds";
+const DESCRIPTION = "Upload your logo and get 60+ professional brand assets instantly — business cards, social media templates, mockups, merchandise & more. One-time $29, lifetime access.";
+const OG_IMAGE    = `${BASE}/og-image.jpg`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE),
+  title: {
+    default: TITLE,
+    template: "%s | CreaCurve",
+  },
+  description: DESCRIPTION,
+  keywords: [
+    "brand kit generator",
+    "brand assets",
+    "logo to brand kit",
+    "social media templates",
+    "business card design",
+    "brand identity",
+    "brand guidelines",
+    "logo design",
+    "brand mockups",
+    "visual identity",
+  ],
+  authors: [{ name: "CreaCurve", url: BASE }],
+  creator: "CreaCurve",
+  publisher: "CreaCurve",
+  alternates: {
+    canonical: BASE,
+  },
   verification: {
     google: "a9iSpI2SBxC9-qRdPp0pJ21hJyOHmFd-EaOQwDEnwAw",
   },
-  title: "CreaCurve — From logo to launch-ready in 90 seconds",
-  description:
-    "Upload your logo. Get 60+ professional brand assets — print, web, social, merchandise & more. One-time $29, lifetime access.",
-  keywords: ["brand kit", "logo design", "brand identity", "social media templates", "business card", "brand guidelines"],
-  authors: [{ name: "CreaCurve" }],
   openGraph: {
-    title: "CreaCurve — From logo to launch-ready in 90 seconds",
-    description: "Upload your logo. Get 60+ professional brand assets instantly.",
-    url: "https://creacurve.com",
-    siteName: "CreaCurve",
     type: "website",
+    locale: "en_US",
+    url: BASE,
+    siteName: "CreaCurve",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "CreaCurve — Brand Kit Generator",
+        type: "image/jpeg",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CreaCurve — Brand kit in 90 seconds",
-    description: "Upload your logo. Get 60+ brand assets instantly for $29.",
+    site: "@creacurve",
+    creator: "@creacurve",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 

@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Generating Your Brand Kit…",
+  description: "Your brand assets are being generated. This takes about 90 seconds.",
+  robots: { index: false, follow: false },
+};
 import { ProcessingPage } from "@/components/ProcessingPage";
 
 export default async function Processing({
