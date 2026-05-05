@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { openChat } from "@/lib/chat";
 
 function scrollTo(id: string) {
@@ -65,6 +65,18 @@ export default function Nav() {
             </button>
           ))}
         </nav>
+
+        {/* Legal dropdown */}
+        <div className="hidden md:block relative group">
+          <button className="flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors duration-200 focus:outline-none">
+            Legal <ChevronDown size={14} />
+          </button>
+          <div className="absolute right-0 top-full mt-2 w-44 bg-white border border-gray-200 rounded-xl shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <Link href="/terms"   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Terms of Service</Link>
+            <Link href="/privacy" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Privacy Policy</Link>
+            <Link href="/refund"  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Refund Policy</Link>
+          </div>
+        </div>
 
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
@@ -136,6 +148,13 @@ export default function Nav() {
           >
             Get started
           </button>
+
+          {/* Mobile legal links */}
+          <div className="border-t border-gray-100 pt-3 flex flex-col gap-2">
+            <Link href="/terms"   onClick={() => setMobileOpen(false)} className="text-xs text-gray-400 hover:text-gray-700 py-0.5">Terms of Service</Link>
+            <Link href="/privacy" onClick={() => setMobileOpen(false)} className="text-xs text-gray-400 hover:text-gray-700 py-0.5">Privacy Policy</Link>
+            <Link href="/refund"  onClick={() => setMobileOpen(false)} className="text-xs text-gray-400 hover:text-gray-700 py-0.5">Refund Policy</Link>
+          </div>
         </div>
       )}
     </header>

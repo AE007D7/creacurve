@@ -26,10 +26,15 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-semibold text-gray-900 mb-3">1. Agreement to Terms</h2>
             <p>
-              By accessing or using CreaCurve (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) at{" "}
-              <strong>creacurve.com</strong>, placing an order, or communicating with our team, you agree
-              to be bound by these Terms of Service and all applicable laws and regulations. If you do not
-              agree with any part of these terms, you may not use our services.
+              These Terms of Service govern your use of the website and services operated by{" "}
+              <strong>CreaCurve</strong> (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;), a sole proprietor
+              business trading under the name <strong>CreaCurve</strong>, reachable at{" "}
+              <a href="mailto:hello@creacurve.com" className="text-violet-600 hover:underline">hello@creacurve.com</a>.
+            </p>
+            <p className="mt-3">
+              By accessing <strong>creacurve.com</strong>, placing an order, or communicating with our
+              team, you agree to be bound by these Terms of Service and all applicable laws and regulations.
+              If you do not agree with any part of these terms, you may not use our services.
             </p>
           </section>
 
