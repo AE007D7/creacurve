@@ -486,6 +486,7 @@ function Footer() {
           <a href="/privacy" className="hover:text-white/60 transition-colors">Privacy</a>
           <a href="/terms" className="hover:text-white/60 transition-colors">Terms</a>
           <a href="mailto:hello@creacurve.com" className="hover:text-white/60 transition-colors">Contact</a>
+          <a href="https://wa.me/12522198026" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">WhatsApp</a>
         </div>
         <div className="text-xs text-white/20">
           Built with <span style={{ background: "linear-gradient(135deg,#7c3aed,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Claude AI</span> · © 2025 CreaCurve

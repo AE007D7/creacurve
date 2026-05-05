@@ -326,6 +326,19 @@ export default function LeadForm() {
 
                 {/* Server error */}
                 {error && <p className="text-sm text-red-600 text-center">{error}</p>}
+
+                {/* WhatsApp alternative */}
+                <p className="text-xs text-gray-400 text-center">
+                  Or contact us directly on{" "}
+                  <a
+                    href="https://wa.me/12522198026"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-600 font-medium hover:underline"
+                  >
+                    WhatsApp
+                  </a>
+                </p>
               </form>
             )}
           </div>
