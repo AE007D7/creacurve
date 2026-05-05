@@ -11,7 +11,6 @@ import FAQSection from "@/components/logo-design/FAQSection";
 import LeadForm from "@/components/logo-design/LeadForm";
 import CTAStrip from "@/components/logo-design/CTAStrip";
 import ChatWidget from "@/components/logo-design/ChatWidget";
-import { PaddleProvider } from "@/components/logo-design/PaddleProvider";
 import type { Metadata } from "next";
 
 const BASE = "https://creacurve.com";
@@ -35,8 +34,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="bg-white text-gray-900 min-h-screen">
-      <PaddleProvider>
-        <Nav />
+      <Nav />
         <main>
           <Hero />
           <LogoMarquee />
@@ -53,7 +51,6 @@ export default function Home() {
           <CTAStrip />
         </main>
         <ChatWidget />
-      </PaddleProvider>
     </div>
   );
 }

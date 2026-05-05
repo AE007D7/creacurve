@@ -3,27 +3,25 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import { usePaddle } from "@/components/logo-design/PaddleProvider";
-import { openChat } from "@/lib/chat";
 
 interface Plan {
   name: string;
+  key: string;
   price: string;
   was: string;
   popular: boolean;
   tagline: string;
   features: string[];
-  priceId: string | null;
 }
 
 const PLANS: Plan[] = [
   {
     name: "Starter",
+    key: "starter",
     price: "$35",
     was: "$119",
     popular: false,
     tagline: "Perfect for startups & side projects.",
-    priceId: "pri_01kqw4e7a8x6n84zjbvrxzt0b6",
     features: [
       "4 logo concepts",
       "2 designers assigned",
@@ -34,11 +32,11 @@ const PLANS: Plan[] = [
   },
   {
     name: "Professional",
+    key: "professional",
     price: "$119",
     was: "$397",
     popular: true,
     tagline: "The choice of growing businesses.",
-    priceId: null, // add price ID when ready
     features: [
       "12 logo concepts",
       "4 industry-specialist designers",
@@ -51,11 +49,11 @@ const PLANS: Plan[] = [
   },
   {
     name: "Platinum",
+    key: "platinum",
     price: "$299",
     was: "$997",
     popular: false,
     tagline: "Full brand identity, done right.",
-    priceId: null, // add price ID when ready
     features: [
       "Unlimited logo concepts",
       "8 designers assigned",
@@ -70,25 +68,28 @@ const PLANS: Plan[] = [
 ];
 
 export default function Pricing() {
-  const { paddle, ready } = usePaddle();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleBuy(plan: Plan) {
-    console.log("[Paddle] handleBuy:", { priceId: plan.priceId, ready, paddle: !!paddle });
-    if (plan.priceId && ready && paddle) {
-      setLoadingPlan(plan.name);
-      paddle.Checkout.open({
-        items: [{ priceId: plan.priceId, quantity: 1 }],
-        settings: {
-          displayMode: "overlay",
-          theme: "light",
-        },
+  async function handleBuy(plan: Plan) {
+    setLoadingPlan(plan.key);
+    setError(null);
+    try {
+      const res = await fetch("/api/logo-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan: plan.key }),
       });
-      // Reset spinner after a short delay — Paddle takes over from here
-      setTimeout(() => setLoadingPlan(null), 1500);
-    } else {
-      // Fallback to live chat for plans without a price ID yet
-      openChat();
+      const data = await res.json() as { url?: string; error?: string };
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError(data.error ?? "Something went wrong. Please try again.");
+        setLoadingPlan(null);
+      }
+    } catch {
+      setError("Network error. Please try again.");
+      setLoadingPlan(null);
     }
   }
 
@@ -110,7 +111,7 @@ export default function Pricing() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
           {PLANS.map((plan, i) => (
             <motion.div
-              key={plan.name}
+              key={plan.key}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -132,44 +133,24 @@ export default function Pricing() {
 
               {/* Header */}
               <div className="mb-7">
-                <p
-                  className={`text-xs font-semibold tracking-widest uppercase mb-1 ${
-                    plan.popular ? "text-violet-400" : "text-gray-400"
-                  }`}
-                >
+                <p className={`text-xs font-semibold tracking-widest uppercase mb-1 ${plan.popular ? "text-violet-400" : "text-gray-400"}`}>
                   {plan.name}
                 </p>
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span
-                    className={`text-5xl font-bold tracking-tight ${
-                      plan.popular ? "text-white" : "text-gray-900"
-                    }`}
-                  >
+                  <span className={`text-5xl font-bold tracking-tight ${plan.popular ? "text-white" : "text-gray-900"}`}>
                     {plan.price}
                   </span>
-                  <span
-                    className={`text-sm line-through ${
-                      plan.popular ? "text-gray-500" : "text-gray-400"
-                    }`}
-                  >
+                  <span className={`text-sm line-through ${plan.popular ? "text-gray-500" : "text-gray-400"}`}>
                     {plan.was}
                   </span>
                 </div>
-                <p
-                  className={`text-sm leading-snug ${
-                    plan.popular ? "text-gray-400" : "text-gray-500"
-                  }`}
-                >
+                <p className={`text-sm leading-snug ${plan.popular ? "text-gray-400" : "text-gray-500"}`}>
                   {plan.tagline}
                 </p>
               </div>
 
               {/* Divider */}
-              <div
-                className={`border-t mb-7 ${
-                  plan.popular ? "border-white/10" : "border-gray-100"
-                }`}
-              />
+              <div className={`border-t mb-7 ${plan.popular ? "border-white/10" : "border-gray-100"}`} />
 
               {/* Features */}
               <ul className="flex-1 space-y-3.5 mb-8">
@@ -178,9 +159,7 @@ export default function Pricing() {
                     <Check
                       size={15}
                       strokeWidth={2.5}
-                      className={`mt-0.5 shrink-0 ${
-                        plan.popular ? "text-violet-400" : "text-gray-400"
-                      }`}
+                      className={`mt-0.5 shrink-0 ${plan.popular ? "text-violet-400" : "text-gray-400"}`}
                     />
                     <span className={plan.popular ? "text-gray-300" : "text-gray-700"}>
                       {feature}
@@ -192,24 +171,26 @@ export default function Pricing() {
               {/* CTA */}
               <button
                 onClick={() => handleBuy(plan)}
-                disabled={loadingPlan === plan.name}
+                disabled={loadingPlan !== null}
                 className={`w-full font-semibold py-3.5 rounded-xl text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed ${
                   plan.popular
                     ? "bg-white text-gray-900 hover:bg-gray-100 focus:ring-white"
                     : "bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-900"
                 }`}
               >
-                {loadingPlan === plan.name ? "Opening…" : plan.priceId ? "Order now" : "Contact us"}
+                {loadingPlan === plan.key ? "Redirecting…" : "Order now"}
               </button>
 
-              {plan.priceId && (
-                <p className={`text-center text-xs mt-3 ${plan.popular ? "text-gray-500" : "text-gray-400"}`}>
-                  Secure checkout via Paddle
-                </p>
-              )}
+              <p className={`text-center text-xs mt-3 ${plan.popular ? "text-gray-500" : "text-gray-400"}`}>
+                Secure checkout · Powered by Stripe
+              </p>
             </motion.div>
           ))}
         </div>
+
+        {error && (
+          <p className="text-center text-sm text-red-500 mt-6">{error}</p>
+        )}
 
         <p className="text-center text-sm text-gray-400 mt-8">
           All plans include a 100% money-back guarantee.
