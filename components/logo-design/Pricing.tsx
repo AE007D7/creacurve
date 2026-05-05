@@ -74,6 +74,7 @@ export default function Pricing() {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   function handleBuy(plan: Plan) {
+    console.log("[Paddle] handleBuy:", { priceId: plan.priceId, ready, paddle: !!paddle });
     if (plan.priceId && ready && paddle) {
       setLoadingPlan(plan.name);
       paddle.Checkout.open({

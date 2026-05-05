@@ -20,7 +20,10 @@ export function PaddleProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const token = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN;
-    if (!token) return;
+    if (!token) {
+      console.warn("[Paddle] NEXT_PUBLIC_PADDLE_CLIENT_TOKEN is not set — checkout will not work.");
+      return;
+    }
 
     import("@paddle/paddle-js").then(({ initializePaddle }) => {
       initializePaddle({
@@ -31,6 +34,7 @@ export function PaddleProvider({ children }: { children: ReactNode }) {
             displayMode: "overlay",
             theme: "light",
             locale: "en",
+            successUrl: `${window.location.origin}/order-confirmed`,
           },
         },
       }).then((instance) => {
