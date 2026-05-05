@@ -61,15 +61,6 @@ export default function FAQSection() {
               Everything you need to know about our logo design service. If something&apos;s not
               covered here, just reach out.
             </p>
-            <p className="text-sm text-gray-500">
-              Still have questions?{" "}
-              <a
-                href="mailto:hello@creacurve.com"
-                className="text-gray-900 underline underline-offset-2 hover:text-gray-700 transition-colors duration-200"
-              >
-                Email us at hello@creacurve.com
-              </a>
-            </p>
           </div>
 
           {/* Right — accordion */}
