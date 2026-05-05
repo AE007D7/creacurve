@@ -1,5 +1,6 @@
 import Nav from "@/components/logo-design/Nav";
 import Hero from "@/components/logo-design/Hero";
+import { PaddleProvider } from "@/components/logo-design/PaddleProvider";
 import LogoMarquee from "@/components/logo-design/LogoMarquee";
 import StatsBar from "@/components/logo-design/StatsBar";
 import Features from "@/components/logo-design/Features";
@@ -222,23 +223,25 @@ export default function LogoDesignPage() {
         />
       ))}
 
-      <Nav />
-      <main>
-        <Hero />
-        <LogoMarquee />
-        <StatsBar />
-        <Features />
-        <section id="pricing">
-          <Pricing />
-        </section>
-        <Portfolio />
-        <Industries />
-        <Testimonials />
-        <FAQSection />
-        <LeadForm />
-        <CTAStrip />
-      </main>
-      <ChatWidget />
+      <PaddleProvider>
+        <Nav />
+        <main>
+          <Hero />
+          <LogoMarquee />
+          <StatsBar />
+          <Features />
+          <section id="pricing">
+            <Pricing />
+          </section>
+          <Portfolio />
+          <Industries />
+          <Testimonials />
+          <FAQSection />
+          <LeadForm />
+          <CTAStrip />
+        </main>
+        <ChatWidget />
+      </PaddleProvider>
     </>
   );
 }

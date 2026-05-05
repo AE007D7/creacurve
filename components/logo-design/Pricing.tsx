@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { usePaddle } from "@/components/logo-design/PaddleProvider";
 import { openChat } from "@/lib/chat";
 
 interface Plan {
@@ -11,6 +13,7 @@ interface Plan {
   popular: boolean;
   tagline: string;
   features: string[];
+  priceId: string | null;
 }
 
 const PLANS: Plan[] = [
@@ -20,6 +23,7 @@ const PLANS: Plan[] = [
     was: "$119",
     popular: false,
     tagline: "Perfect for startups & side projects.",
+    priceId: "pri_01kqw4e7a8x6n84zjbvrxzt0b6",
     features: [
       "4 logo concepts",
       "2 designers assigned",
@@ -34,6 +38,7 @@ const PLANS: Plan[] = [
     was: "$397",
     popular: true,
     tagline: "The choice of growing businesses.",
+    priceId: null, // add price ID when ready
     features: [
       "12 logo concepts",
       "4 industry-specialist designers",
@@ -50,6 +55,7 @@ const PLANS: Plan[] = [
     was: "$997",
     popular: false,
     tagline: "Full brand identity, done right.",
+    priceId: null, // add price ID when ready
     features: [
       "Unlimited logo concepts",
       "8 designers assigned",
@@ -64,6 +70,27 @@ const PLANS: Plan[] = [
 ];
 
 export default function Pricing() {
+  const { paddle, ready } = usePaddle();
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+
+  function handleBuy(plan: Plan) {
+    if (plan.priceId && ready && paddle) {
+      setLoadingPlan(plan.name);
+      paddle.Checkout.open({
+        items: [{ priceId: plan.priceId, quantity: 1 }],
+        settings: {
+          displayMode: "overlay",
+          theme: "light",
+        },
+      });
+      // Reset spinner after a short delay — Paddle takes over from here
+      setTimeout(() => setLoadingPlan(null), 1500);
+    } else {
+      // Fallback to live chat for plans without a price ID yet
+      openChat();
+    }
+  }
+
   return (
     <div id="pricing" className="py-16 bg-[#FAFAFA]">
       <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
@@ -163,15 +190,22 @@ export default function Pricing() {
 
               {/* CTA */}
               <button
-                onClick={openChat}
-                className={`w-full font-semibold py-3.5 rounded-xl text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                onClick={() => handleBuy(plan)}
+                disabled={loadingPlan === plan.name}
+                className={`w-full font-semibold py-3.5 rounded-xl text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed ${
                   plan.popular
                     ? "bg-white text-gray-900 hover:bg-gray-100 focus:ring-white"
                     : "bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-900"
                 }`}
               >
-                Order now
+                {loadingPlan === plan.name ? "Opening…" : plan.priceId ? "Order now" : "Contact us"}
               </button>
+
+              {plan.priceId && (
+                <p className={`text-center text-xs mt-3 ${plan.popular ? "text-gray-500" : "text-gray-400"}`}>
+                  Secure checkout via Paddle
+                </p>
+              )}
             </motion.div>
           ))}
         </div>
