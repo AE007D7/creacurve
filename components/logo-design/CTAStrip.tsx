@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { openChat } from "@/lib/chat";
 
 export default function CTAStrip() {
@@ -92,6 +93,17 @@ export default function CTAStrip() {
             ))}
           </div>
         </motion.div>
+      </div>
+
+      {/* Footer */}
+      <div className="border-t border-white/5 mt-16 pt-8 pb-4 text-center">
+        <div className="flex items-center justify-center gap-6 flex-wrap text-xs text-gray-600 mb-3">
+          <Link href="/terms" className="hover:text-gray-400 transition-colors">Terms of Service</Link>
+          <Link href="/privacy" className="hover:text-gray-400 transition-colors">Privacy Policy</Link>
+          <Link href="/refund" className="hover:text-gray-400 transition-colors">Refund Policy</Link>
+          <a href="mailto:hello@creacurve.com" className="hover:text-gray-400 transition-colors">hello@creacurve.com</a>
+        </div>
+        <p className="text-xs text-gray-700">© {new Date().getFullYear()} CreaCurve. All rights reserved.</p>
       </div>
     </section>
   );
