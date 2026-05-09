@@ -1,7 +1,9 @@
 /**
  * Creative brand mockups — 4 real-world placement scenes.
  *
- * AI path  → Stability AI (STABILITY_API_KEY) or DALL-E 3 (OPENAI_API_KEY)
+ * AI path  → Stability AI (STABILITY_API_KEY) — prompts with brand name, image returned as-is
+ *           → DALL-E 3 (OPENAI_API_KEY)       — generates EMPTY background scene, then
+ *                                                composites the real logo on top with sharp
  * Fallback → pure Sharp compositing (no external API needed)
  *
  * Output: up to 4 items, each ~1400×1050 PNG (≈ 4:3)
@@ -14,48 +16,74 @@ const H = 1050;
 
 /* ── mockup definitions ─────────────────────────────────────────────────────*/
 
+interface LogoPlacement {
+  /** Horizontal centre as fraction of W */
+  xFrac: number;
+  /** Vertical centre as fraction of H */
+  yFrac: number;
+  /** Max width the logo should be resized to */
+  maxW: number;
+}
+
 interface MockupDef {
   name: string;
-  prompt: (brandName: string, tagline: string) => string;
-  /** Diagonal-gradient from/to colors [R,G,B] */
+  /** Stability AI prompt — may reference brand name */
+  stabilityPrompt: (brandName: string, tagline: string) => string;
+  /** DALL-E 3 prompt — empty scene, NO logo, NO text */
+  dallePrompt: string;
+  /** Diagonal-gradient from/to colors [R,G,B] for sharp fallback */
   bgFrom: [number, number, number];
   bgTo:   [number, number, number];
-  /** Product surface rectangle dimensions and position */
+  /** Product surface rectangle dimensions (sharp fallback) */
   surface: { w: number; h: number };
+  /** Where to composite the real logo onto a DALL-E scene */
+  logoPlacement: LogoPlacement;
 }
 
 const MOCKUPS: MockupDef[] = [
   {
     name: "mockup-business-card.png",
-    prompt: (brandName) =>
+    stabilityPrompt: (brandName) =>
       `Professional luxury business card mockup, top-down flat lay on white marble surface, the card features the brand logo '${brandName}' in elegant typography, minimalist design with subtle gold accents, soft studio lighting, photorealistic product photography, 4K resolution`,
+    dallePrompt:
+      "Top-down flat lay photo of a blank white business card on white marble surface, soft shadows, studio lighting, photorealistic, 4K, no text, no logo, no print",
     bgFrom:  [248, 248, 246],
     bgTo:    [235, 232, 228],
     surface: { w: 700, h: 420 },
+    logoPlacement: { xFrac: 0.5, yFrac: 0.5, maxW: 280 },
   },
   {
     name: "mockup-coffee-cup.png",
-    prompt: (brandName) =>
+    stabilityPrompt: (brandName) =>
       `Premium takeaway coffee cup mockup with '${brandName}' logo printed on white kraft cup, cozy modern cafe background bokeh, warm lighting, photorealistic product shot, 4K`,
+    dallePrompt:
+      "Premium white kraft takeaway coffee cup, cozy modern cafe background with bokeh, warm lighting, photorealistic product shot, 4K, no logo no text no print",
     bgFrom:  [62,  38,  20],
     bgTo:    [120, 72,  30],
     surface: { w: 400, h: 600 },
+    logoPlacement: { xFrac: 0.5, yFrac: 0.38, maxW: 130 },
   },
   {
     name: "mockup-tshirt.png",
-    prompt: (brandName) =>
+    stabilityPrompt: (brandName) =>
       `Premium white t-shirt flat lay mockup on clean light gray background, '${brandName}' logo printed on chest area, minimalist lifestyle product photography, soft natural lighting, high resolution`,
+    dallePrompt:
+      "White t-shirt flat lay on clean light gray background, soft natural lighting, high resolution product photography, no print no logo no text",
     bgFrom:  [240, 240, 240],
     bgTo:    [220, 220, 220],
     surface: { w: 600, h: 700 },
+    logoPlacement: { xFrac: 0.5, yFrac: 0.40, maxW: 200 },
   },
   {
     name: "mockup-storefront.png",
-    prompt: (brandName) =>
+    stabilityPrompt: (brandName) =>
       `Modern retail storefront sign mockup, '${brandName}' logo on illuminated LED signage above a sleek glass entrance, urban street photography, golden hour lighting, photorealistic, high resolution`,
+    dallePrompt:
+      "Modern retail glass storefront entrance at night, illuminated from inside, urban street, golden hour, photorealistic, no signage no text no logo",
     bgFrom:  [8,  12,  28],
     bgTo:    [20, 30,  60],
     surface: { w: 800, h: 500 },
+    logoPlacement: { xFrac: 0.5, yFrac: 0.35, maxW: 280 },
   },
 ];
 
@@ -170,6 +198,46 @@ async function buildSharpFallback(
     .toBuffer();
 }
 
+/* ── logo-onto-scene compositor ──────────────────────────────────────────── */
+
+/**
+ * Resize AI-generated scene to W×H, then composite the real logo on top
+ * at the position defined by MockupDef.logoPlacement.
+ */
+async function compositeLogoOntoScene(
+  scene:   Buffer,
+  logoBuf: Buffer,
+  def:     MockupDef,
+): Promise<Buffer> {
+  const { xFrac, yFrac, maxW } = def.logoPlacement;
+
+  // 1 — Resize scene to canonical dimensions
+  const sceneBuf = await sharp(scene)
+    .resize(W, H, { fit: "cover" })
+    .png()
+    .toBuffer();
+
+  // 2 — Resize logo to fit within maxW × maxW (preserve aspect ratio)
+  const resizedLogo = await sharp(logoBuf)
+    .resize(maxW, maxW, { fit: "inside" })
+    .png()
+    .toBuffer();
+
+  const lMeta = await sharp(resizedLogo).metadata();
+  const lW = lMeta.width!;
+  const lH = lMeta.height!;
+
+  // 3 — Compute placement (centred on xFrac, yFrac)
+  const left = Math.round(W * xFrac - lW / 2);
+  const top  = Math.round(H * yFrac - lH / 2);
+
+  // 4 — Composite and return
+  return sharp(sceneBuf)
+    .composite([{ input: resizedLogo, left, top }])
+    .png()
+    .toBuffer();
+}
+
 /* ── AI path — Stability AI ─────────────────────────────────────────────── */
 
 async function buildStabilityImage(
@@ -238,18 +306,25 @@ async function buildOneMockup(
   stabilityKey: string | undefined,
   openaiKey:    string | undefined,
 ): Promise<{ name: string; buf: Buffer } | null> {
-  const prompt = def.prompt(brandName, tagline);
 
-  // Try Stability AI
+  // Try Stability AI — returns full scene with brand name baked in
   if (stabilityKey) {
-    const img = await buildStabilityImage(prompt, stabilityKey);
+    const img = await buildStabilityImage(def.stabilityPrompt(brandName, tagline), stabilityKey);
     if (img) return { name: def.name, buf: img };
   }
 
-  // Try DALL-E 3
+  // Try DALL-E 3 — generates empty background scene, then we composite the real logo
   if (openaiKey) {
-    const img = await buildDalleImage(prompt, openaiKey);
-    if (img) return { name: def.name, buf: img };
+    const scene = await buildDalleImage(def.dallePrompt, openaiKey);
+    if (scene) {
+      try {
+        const buf = await compositeLogoOntoScene(scene, logoBuf, def);
+        return { name: def.name, buf };
+      } catch (e) {
+        console.error(`Logo composite failed for ${def.name}:`, e);
+        // fall through to sharp fallback
+      }
+    }
   }
 
   // Sharp fallback — always works
