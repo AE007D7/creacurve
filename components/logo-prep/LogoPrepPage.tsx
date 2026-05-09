@@ -81,7 +81,8 @@ const OUTPUT_FILES = [
   { group: "03 — Favicons",   label: "favicon-192.png",        desc: "192 × 192px (PWA / Android)",          badge: "bg-cyan-50    border-cyan-200   text-cyan-700"   },
   { group: "04 — Mockups",    label: "mockup-brand-board.png", desc: "2D brand board (light + dark)",        badge: "bg-emerald-50 border-emerald-200 text-emerald-700"},
   { group: "04 — Mockups",    label: "mockup-3d-card.png",     desc: "3D card perspective mockup",           badge: "bg-emerald-50 border-emerald-200 text-emerald-700"},
-  { group: "05 — Brand",      label: "brand-guidelines.pdf",   desc: "Colors, typography & usage rules",     badge: "bg-rose-50    border-rose-200   text-rose-700",  icon: "pdf" },
+  { group: "05 — Brand",      label: "brand-guidelines.pdf",      desc: "Colors, typography & usage rules",  badge: "bg-rose-50    border-rose-200   text-rose-700",  icon: "pdf" },
+  { group: "05 — Brand",      label: "copyright-certificate.pdf", desc: "Official copyright ownership cert", badge: "bg-amber-50   border-amber-200  text-amber-700", icon: "pdf" },
 ];
 
 const STEPS = ["Remove BG", "Variants", "Favicons", "Mockups", "Brand PDF", "ZIP"];
@@ -92,6 +93,7 @@ export default function LogoPrepPage() {
   const [state, setState]       = useState<State>({ phase: "idle" });
   const [dragOver, setDragOver] = useState(false);
   const [brandName, setBrandName] = useState("");
+  const [ownerName, setOwnerName] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback((file: File) => {
@@ -124,6 +126,7 @@ export default function LogoPrepPage() {
       const form = new FormData();
       form.append("file", file);
       form.append("brandName", brandName || "My Brand");
+      form.append("ownerName", ownerName);
       const res = await fetch("/api/logo-prep", { method: "POST", body: form });
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: "Unknown error" }));
@@ -189,8 +192,8 @@ export default function LogoPrepPage() {
             </h1>
 
             <p className="text-lg text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
-              Upload your AI-generated logo and get originals, 5 PNG variants, 3 favicon sizes, 2D &amp; 3D mockups, plus a{" "}
-              <span className="font-medium text-gray-700">Brand Guidelines PDF</span> — 13 files, one ZIP.
+              Upload your AI-generated logo and get originals, 5 PNG variants, 3 favicon sizes, 2D &amp; 3D mockups, a Brand PDF, and a{" "}
+              <span className="font-medium text-gray-700">Copyright Certificate</span> — 14 files, one ZIP.
             </p>
           </motion.div>
 
@@ -205,18 +208,32 @@ export default function LogoPrepPage() {
               {/* IDLE */}
               {state.phase === "idle" && (
                 <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                  {/* Brand name input */}
-                  <div className="mb-4 text-left">
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Brand name <span className="text-gray-400 font-normal">(used in the PDF)</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={brandName}
-                      onChange={(e) => setBrandName(e.target.value)}
-                      placeholder="e.g. Acme Studio"
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
-                    />
+                  {/* Brand + Owner inputs */}
+                  <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                        Brand name <span className="text-gray-400 font-normal">(for PDF)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={brandName}
+                        onChange={(e) => setBrandName(e.target.value)}
+                        placeholder="e.g. Acme Studio"
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                        Owner name <span className="text-gray-400 font-normal">(for copyright cert)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={ownerName}
+                        onChange={(e) => setOwnerName(e.target.value)}
+                        placeholder="e.g. John Smith"
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                      />
+                    </div>
                   </div>
 
                   <div
@@ -343,7 +360,7 @@ export default function LogoPrepPage() {
                     </div>
                     <div className="text-center">
                       <p className="text-lg font-bold text-gray-900 mb-1">Your files are ready!</p>
-                      <p className="text-sm text-gray-500">ZIP contains 13 files in 5 folders — originals, variants, favicons, mockups & PDF</p>
+                      <p className="text-sm text-gray-500">ZIP contains 14 files in 5 folders — originals, variants, favicons, mockups, brand PDF & copyright cert</p>
                     </div>
 
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-1 text-left">
@@ -451,6 +468,13 @@ export default function LogoPrepPage() {
                 preview: "pdf",
                 useCases: ["Share with designers", "Agency briefs", "Style guide"],
               },
+              {
+                title: "Copyright Certificate",
+                file: "05-brand/copyright-certificate.pdf",
+                desc: "Official 1-page certificate of copyright ownership with cert number, date, seal, and signature lines.",
+                preview: "cert",
+                useCases: ["Proof of ownership", "Trademark filing", "Client delivery"],
+              },
             ].map((item) => (
               <motion.div
                 key={item.title}
@@ -472,10 +496,17 @@ export default function LogoPrepPage() {
                       : item.preview === "favicon"  ? { background: "linear-gradient(135deg, #ecfeff 0%, #cffafe 100%)" }
                       : item.preview === "mockup2d" ? { background: "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)" }
                       : item.preview === "mockup3d" ? { background: "linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%)" }
+                      : item.preview === "cert"    ? { background: "linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)" }
                       : { background: "#f9fafb" }
                   }
                 >
-                  {item.preview === "pdf" ? (
+                  {item.preview === "cert" ? (
+                    <div className="flex flex-col items-center gap-1">
+                      <div className="w-12 h-16 rounded border-2 border-amber-300 bg-white flex items-center justify-center shadow-sm">
+                        <span className="text-amber-500 text-lg">©</span>
+                      </div>
+                    </div>
+                  ) : item.preview === "pdf" ? (
                     <FileText size={32} className="text-violet-400" />
                   ) : item.preview === "favicon" ? (
                     <div className="flex gap-1.5 items-end">
