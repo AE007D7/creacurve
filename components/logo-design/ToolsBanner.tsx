@@ -16,7 +16,7 @@ export default function ToolsBanner() {
                 Already have an AI logo?
               </p>
               <p className="text-sm text-gray-500">
-                Remove the background and get transparent, black &amp; white versions — free.
+                Remove the background, get 5 PNG variants + a Brand Guidelines PDF — free.
               </p>
             </div>
           </div>
