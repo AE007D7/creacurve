@@ -69,15 +69,22 @@ type State =
   | { phase: "done"; zipUrl: string; fileName: string };
 
 const OUTPUT_FILES = [
-  { label: "logo-transparent.png", desc: "No background — place on anything",      badge: "bg-violet-50  border-violet-200 text-violet-700"  },
-  { label: "logo-black.png",        desc: "Black silhouette on transparent",         badge: "bg-gray-50   border-gray-200   text-gray-700"    },
-  { label: "logo-white.png",        desc: "White silhouette on transparent",         badge: "bg-slate-50  border-slate-200  text-slate-600"   },
-  { label: "logo-on-white.png",     desc: "Full color on white background",          badge: "bg-orange-50 border-orange-200 text-orange-700"  },
-  { label: "logo-on-dark.png",      desc: "Full color on dark background",           badge: "bg-indigo-50 border-indigo-200 text-indigo-700"  },
-  { label: "brand-guidelines.pdf",  desc: "Colors, typography & usage rules",        badge: "bg-rose-50   border-rose-200   text-rose-700",  icon: "pdf" },
+  { group: "01 — Originals",  label: "logo-original.png",      desc: "Original upload as PNG",               badge: "bg-gray-50    border-gray-200   text-gray-700"   },
+  { group: "01 — Originals",  label: "logo-original.jpg",      desc: "Original upload as JPEG",              badge: "bg-gray-50    border-gray-200   text-gray-700"   },
+  { group: "02 — Variants",   label: "logo-transparent.png",   desc: "No background",                        badge: "bg-violet-50  border-violet-200 text-violet-700" },
+  { group: "02 — Variants",   label: "logo-black.png",         desc: "Black silhouette, transparent bg",     badge: "bg-zinc-50    border-zinc-200   text-zinc-700"   },
+  { group: "02 — Variants",   label: "logo-white.png",         desc: "White silhouette, transparent bg",     badge: "bg-slate-50   border-slate-200  text-slate-600"  },
+  { group: "02 — Variants",   label: "logo-on-white.png",      desc: "Full color on white background",       badge: "bg-orange-50  border-orange-200 text-orange-700" },
+  { group: "02 — Variants",   label: "logo-on-dark.png",       desc: "Full color on dark background",        badge: "bg-indigo-50  border-indigo-200 text-indigo-700" },
+  { group: "03 — Favicons",   label: "favicon-16.png",         desc: "16 × 16px icon",                       badge: "bg-cyan-50    border-cyan-200   text-cyan-700"   },
+  { group: "03 — Favicons",   label: "favicon-32.png",         desc: "32 × 32px icon",                       badge: "bg-cyan-50    border-cyan-200   text-cyan-700"   },
+  { group: "03 — Favicons",   label: "favicon-192.png",        desc: "192 × 192px (PWA / Android)",          badge: "bg-cyan-50    border-cyan-200   text-cyan-700"   },
+  { group: "04 — Mockups",    label: "mockup-brand-board.png", desc: "2D brand board (light + dark)",        badge: "bg-emerald-50 border-emerald-200 text-emerald-700"},
+  { group: "04 — Mockups",    label: "mockup-3d-card.png",     desc: "3D card perspective mockup",           badge: "bg-emerald-50 border-emerald-200 text-emerald-700"},
+  { group: "05 — Brand",      label: "brand-guidelines.pdf",   desc: "Colors, typography & usage rules",     badge: "bg-rose-50    border-rose-200   text-rose-700",  icon: "pdf" },
 ];
 
-const STEPS = ["Remove BG", "Variants", "Brand PDF", "Pack ZIP"];
+const STEPS = ["Remove BG", "Variants", "Favicons", "Mockups", "Brand PDF", "ZIP"];
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
@@ -182,8 +189,8 @@ export default function LogoPrepPage() {
             </h1>
 
             <p className="text-lg text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
-              Upload your AI-generated logo and instantly get 5 PNG variants plus a full{" "}
-              <span className="font-medium text-gray-700">Brand Guidelines PDF</span> — all in one ZIP, ready for web and print.
+              Upload your AI-generated logo and get originals, 5 PNG variants, 3 favicon sizes, 2D &amp; 3D mockups, plus a{" "}
+              <span className="font-medium text-gray-700">Brand Guidelines PDF</span> — 13 files, one ZIP.
             </p>
           </motion.div>
 
@@ -336,10 +343,10 @@ export default function LogoPrepPage() {
                     </div>
                     <div className="text-center">
                       <p className="text-lg font-bold text-gray-900 mb-1">Your files are ready!</p>
-                      <p className="text-sm text-gray-500">ZIP contains 5 PNG variants + a Brand Guidelines PDF</p>
+                      <p className="text-sm text-gray-500">ZIP contains 13 files in 5 folders — originals, variants, favicons, mockups & PDF</p>
                     </div>
 
-                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2 mt-1">
+                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-1 text-left">
                       {OUTPUT_FILES.map((f) => (
                         <div key={f.label} className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border ${f.badge}`}>
                           {f.icon === "pdf"
@@ -383,50 +390,64 @@ export default function LogoPrepPage() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">What&apos;s inside the ZIP</h2>
-            <p className="text-gray-500">Six files — every format you&apos;ll ever need</p>
+            <p className="text-gray-500">13 files across 5 folders — everything your brand needs</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
               {
+                title: "Original PNG & JPEG",
+                file: "01-originals/",
+                desc: "Your uploaded logo saved in both PNG and JPEG at full quality.",
+                preview: "plain-white",
+                useCases: ["Archive copy", "Client delivery", "Quick sharing"],
+              },
+              {
                 title: "Transparent PNG",
-                file: "logo-transparent.png",
+                file: "02-variants/logo-transparent.png",
                 desc: "Background removed. Place it on any color or image.",
                 preview: "checkerboard",
                 useCases: ["Website headers", "Social media", "Presentations"],
               },
               {
-                title: "Black Version",
-                file: "logo-black.png",
-                desc: "All shapes filled solid black on a transparent background.",
+                title: "Black & White Versions",
+                file: "02-variants/logo-black/white.png",
+                desc: "Solid black and solid white silhouettes on transparent backgrounds.",
                 preview: "white",
-                useCases: ["Light backgrounds", "Print documents", "Embroidery"],
+                useCases: ["Print documents", "Embroidery", "Watermarks"],
               },
               {
-                title: "White Version",
-                file: "logo-white.png",
-                desc: "All shapes filled solid white on a transparent background.",
-                preview: "dark",
-                useCases: ["Dark backgrounds", "Footer logos", "Merchandise"],
-              },
-              {
-                title: "On White Background",
-                file: "logo-on-white.png",
-                desc: "Full-color logo with a clean white background, ready to share.",
-                preview: "plain-white",
-                useCases: ["Email signatures", "Documents", "Invoices"],
-              },
-              {
-                title: "On Dark Background",
-                file: "logo-on-dark.png",
-                desc: "Full-color logo on a dark background for dark-mode contexts.",
+                title: "On-Color Backgrounds",
+                file: "02-variants/logo-on-*.png",
+                desc: "Full-color logo flattened on white and dark backgrounds.",
                 preview: "plain-dark",
-                useCases: ["Dark-mode websites", "Slide decks", "Video intros"],
+                useCases: ["Email signatures", "Slide decks", "Invoices"],
+              },
+              {
+                title: "Favicon Set",
+                file: "03-favicons/",
+                desc: "Icon extracted from your logo at 16, 32, and 192px for web & PWA.",
+                preview: "favicon",
+                useCases: ["Browser tab", "Mobile home screen", "PWA manifest"],
+              },
+              {
+                title: "2D Brand Board",
+                file: "04-mockups/mockup-brand-board.png",
+                desc: "Clean side-by-side mockup of your logo on light and dark backgrounds.",
+                preview: "mockup2d",
+                useCases: ["Portfolio", "Client presentation", "Social media"],
+              },
+              {
+                title: "3D Card Mockup",
+                file: "04-mockups/mockup-3d-card.png",
+                desc: "Perspective 3D card mockup of your logo with shadow and gradient.",
+                preview: "mockup3d",
+                useCases: ["Social posts", "Website hero", "Marketing decks"],
               },
               {
                 title: "Brand Guidelines PDF",
-                file: "brand-guidelines.pdf",
-                desc: "Color palette, typography, clear space rules, and usage dos & don'ts.",
+                file: "05-brand/brand-guidelines.pdf",
+                desc: "5-page US Letter PDF: logo, colors with HEX/RGB/CMYK, typography, dos & don'ts.",
                 preview: "pdf",
                 useCases: ["Share with designers", "Agency briefs", "Style guide"],
               },
@@ -447,12 +468,26 @@ export default function LogoPrepPage() {
                       backgroundSize: "16px 16px",
                       backgroundPosition: "0 0,0 8px,8px -8px,-8px 0px",
                     } : item.preview === "dark" || item.preview === "plain-dark" ? { background: "#14142b" }
-                      : item.preview === "pdf" ? { background: "linear-gradient(135deg, #fdf4ff 0%, #ede9fe 100%)" }
+                      : item.preview === "pdf"      ? { background: "linear-gradient(135deg, #fdf4ff 0%, #ede9fe 100%)" }
+                      : item.preview === "favicon"  ? { background: "linear-gradient(135deg, #ecfeff 0%, #cffafe 100%)" }
+                      : item.preview === "mockup2d" ? { background: "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)" }
+                      : item.preview === "mockup3d" ? { background: "linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%)" }
                       : { background: "#f9fafb" }
                   }
                 >
                   {item.preview === "pdf" ? (
                     <FileText size={32} className="text-violet-400" />
+                  ) : item.preview === "favicon" ? (
+                    <div className="flex gap-1.5 items-end">
+                      {[10,16,24].map(s => <div key={s} className="rounded-sm bg-cyan-400 opacity-80" style={{width:s,height:s}} />)}
+                    </div>
+                  ) : item.preview === "mockup2d" ? (
+                    <div className="flex gap-2">
+                      <div className="w-16 h-10 rounded bg-white border border-gray-200 flex items-center justify-center text-xs font-bold text-gray-400">CC</div>
+                      <div className="w-16 h-10 rounded flex items-center justify-center text-xs font-bold text-white" style={{background:"#14142b"}}>CC</div>
+                    </div>
+                  ) : item.preview === "mockup3d" ? (
+                    <div className="w-20 h-12 rounded bg-white shadow-lg flex items-center justify-center text-sm font-bold text-gray-600" style={{transform:"perspective(200px) rotateY(-20deg) rotateX(5deg)"}}>CC</div>
                   ) : (
                     <div
                       className="w-14 h-14 rounded-xl flex items-center justify-center text-xl font-bold"
