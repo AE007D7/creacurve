@@ -2,6 +2,7 @@ import Nav from "@/components/logo-design/Nav";
 import Hero from "@/components/logo-design/Hero";
 import LogoMarquee from "@/components/logo-design/LogoMarquee";
 import StatsBar from "@/components/logo-design/StatsBar";
+import ToolsBanner from "@/components/logo-design/ToolsBanner";
 import Features from "@/components/logo-design/Features";
 import Pricing from "@/components/logo-design/Pricing";
 import Portfolio from "@/components/logo-design/Portfolio";
@@ -39,6 +40,7 @@ export default function Home() {
           <Hero />
           <LogoMarquee />
           <StatsBar />
+          <ToolsBanner />
           <Features />
           <section id="pricing">
             <Pricing />
