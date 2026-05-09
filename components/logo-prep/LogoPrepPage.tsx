@@ -81,6 +81,7 @@ const OUTPUT_FILES = [
   { group: "03 — Favicons",   label: "favicon-192.png",        desc: "192 × 192px (PWA / Android)",          badge: "bg-cyan-50    border-cyan-200   text-cyan-700"   },
   { group: "04 — Mockups",    label: "mockup-brand-board.png", desc: "2D brand board (light + dark)",        badge: "bg-emerald-50 border-emerald-200 text-emerald-700"},
   { group: "04 — Mockups",    label: "mockup-3d-card.png",     desc: "3D card perspective mockup",           badge: "bg-emerald-50 border-emerald-200 text-emerald-700"},
+  { group: "04 — Mockups",    label: "mockup-wall-3d.png",     desc: "Gold 3D logo on frosted glass wall",   badge: "bg-yellow-50  border-yellow-200  text-yellow-700" },
   { group: "05 — Brand",      label: "brand-guidelines.pdf",      desc: "Colors, typography & usage rules",  badge: "bg-rose-50    border-rose-200   text-rose-700",  icon: "pdf" },
   { group: "05 — Brand",      label: "copyright-certificate.pdf", desc: "Official copyright ownership cert", badge: "bg-amber-50   border-amber-200  text-amber-700", icon: "pdf" },
 ];
@@ -94,6 +95,7 @@ export default function LogoPrepPage() {
   const [dragOver, setDragOver] = useState(false);
   const [brandName, setBrandName] = useState("");
   const [ownerName, setOwnerName] = useState("");
+  const [tagline,   setTagline]   = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback((file: File) => {
@@ -127,6 +129,7 @@ export default function LogoPrepPage() {
       form.append("file", file);
       form.append("brandName", brandName || "My Brand");
       form.append("ownerName", ownerName);
+      form.append("tagline",   tagline);
       const res = await fetch("/api/logo-prep", { method: "POST", body: form });
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: "Unknown error" }));
@@ -208,7 +211,7 @@ export default function LogoPrepPage() {
               {/* IDLE */}
               {state.phase === "idle" && (
                 <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                  {/* Brand + Owner inputs */}
+                  {/* Brand + Owner + Tagline inputs */}
                   <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -224,13 +227,25 @@ export default function LogoPrepPage() {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                        Owner name <span className="text-gray-400 font-normal">(for copyright cert)</span>
+                        Owner name <span className="text-gray-400 font-normal">(copyright cert)</span>
                       </label>
                       <input
                         type="text"
                         value={ownerName}
                         onChange={(e) => setOwnerName(e.target.value)}
                         placeholder="e.g. John Smith"
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                        Tagline <span className="text-gray-400 font-normal">(wall mockup — optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={tagline}
+                        onChange={(e) => setTagline(e.target.value)}
+                        placeholder="e.g. Where brands come alive"
                         className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
                       />
                     </div>
@@ -360,7 +375,7 @@ export default function LogoPrepPage() {
                     </div>
                     <div className="text-center">
                       <p className="text-lg font-bold text-gray-900 mb-1">Your files are ready!</p>
-                      <p className="text-sm text-gray-500">ZIP contains 14 files in 5 folders — originals, variants, favicons, mockups, brand PDF & copyright cert</p>
+                      <p className="text-sm text-gray-500">ZIP contains 15 files in 5 folders — originals, variants, favicons, 3 mockups, brand PDF & copyright cert</p>
                     </div>
 
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-1 text-left">
@@ -462,6 +477,13 @@ export default function LogoPrepPage() {
                 useCases: ["Social posts", "Website hero", "Marketing decks"],
               },
               {
+                title: "Wall Mockup",
+                file: "04-mockups/mockup-wall-3d.png",
+                desc: "Logo in metallic gold on a frosted glass office wall. AI-powered if Stability/DALL-E key is set, otherwise rendered with Sharp.",
+                preview: "wall",
+                useCases: ["Premium pitch decks", "LinkedIn posts", "Client delivery"],
+              },
+              {
                 title: "Brand Guidelines PDF",
                 file: "05-brand/brand-guidelines.pdf",
                 desc: "5-page US Letter PDF: logo, colors with HEX/RGB/CMYK, typography, dos & don'ts.",
@@ -496,6 +518,7 @@ export default function LogoPrepPage() {
                       : item.preview === "favicon"  ? { background: "linear-gradient(135deg, #ecfeff 0%, #cffafe 100%)" }
                       : item.preview === "mockup2d" ? { background: "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)" }
                       : item.preview === "mockup3d" ? { background: "linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%)" }
+                      : item.preview === "wall"    ? { background: "linear-gradient(135deg, #0a0e1f 0%, #1e2b5e 100%)" }
                       : item.preview === "cert"    ? { background: "linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)" }
                       : { background: "#f9fafb" }
                   }
@@ -519,6 +542,11 @@ export default function LogoPrepPage() {
                     </div>
                   ) : item.preview === "mockup3d" ? (
                     <div className="w-20 h-12 rounded bg-white shadow-lg flex items-center justify-center text-sm font-bold text-gray-600" style={{transform:"perspective(200px) rotateY(-20deg) rotateX(5deg)"}}>CC</div>
+                  ) : item.preview === "wall" ? (
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="text-2xl font-bold" style={{background:"linear-gradient(90deg,#8B6914,#D4AF37,#F5E076)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",textShadow:"none"}}>CC</span>
+                      <span className="text-xs text-blue-300 opacity-70">frosted glass wall</span>
+                    </div>
                   ) : (
                     <div
                       className="w-14 h-14 rounded-xl flex items-center justify-center text-xl font-bold"

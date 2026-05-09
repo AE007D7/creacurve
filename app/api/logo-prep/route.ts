@@ -6,6 +6,7 @@ import { extractLogoColors } from "@/lib/render/color-extractor";
 import { buildLogoPrepPDF } from "@/lib/render/logo-prep-pdf";
 import { buildBrandBoard, buildCardMockup3D, buildFaviconSet } from "@/lib/render/logo-mockup";
 import { buildCopyrightCert } from "@/lib/render/copyright-cert";
+import { buildWallMockup } from "@/lib/render/wall-mockup";
 
 const anthropic = new Anthropic();
 
@@ -75,6 +76,7 @@ export async function POST(req: NextRequest) {
 
     const brandName  = ((form.get("brandName")  as string) || "My Brand").trim()  || "My Brand";
     const ownerName  = ((form.get("ownerName")   as string) || "").trim();
+    const tagline    = ((form.get("tagline")     as string) || "").trim();
 
     const inputBuf = Buffer.from(await file.arrayBuffer());
 
@@ -105,9 +107,10 @@ export async function POST(req: NextRequest) {
     const favicons = await buildFaviconSet(iconBuf);
 
     // ── 5. Mockups + Brand PDF + Copyright cert — in parallel ─────────────
-    const [mockup2d, mockup3d, pdfBuf, certBuf] = await Promise.all([
+    const [mockup2d, mockup3d, wallMockup, pdfBuf, certBuf] = await Promise.all([
       buildBrandBoard(basePng, accentHex),
       buildCardMockup3D(basePng, accentHex),
+      buildWallMockup({ logoBuf: basePng, brandName, tagline }),
       buildLogoPrepPDF({ brandName, colors, logoBuf: basePng }),
       buildCopyrightCert({ brandName, ownerName, accentHex, logoBuf: basePng }),
     ]);
@@ -131,8 +134,9 @@ export async function POST(req: NextRequest) {
       .file("favicon-192.png",  favicons.s192);
 
     zip.folder("04-mockups")!
-      .file("mockup-brand-board.png", mockup2d)
-      .file("mockup-3d-card.png",     mockup3d);
+      .file("mockup-brand-board.png",  mockup2d)
+      .file("mockup-3d-card.png",      mockup3d)
+      .file("mockup-wall-3d.png",      wallMockup);
 
     zip.folder("05-brand")!
       .file("brand-guidelines.pdf",     pdfBuf)
