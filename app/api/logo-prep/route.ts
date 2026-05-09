@@ -7,6 +7,7 @@ import { buildLogoPrepPDF } from "@/lib/render/logo-prep-pdf";
 import { buildBrandBoard, buildCardMockup3D, buildFaviconSet } from "@/lib/render/logo-mockup";
 import { buildCopyrightCert } from "@/lib/render/copyright-cert";
 import { buildWallMockup } from "@/lib/render/wall-mockup";
+import { buildLogoPDF, buildLogoSVG, buildLogoPSD, buildLogoAI } from "@/lib/render/logo-formats";
 
 const anthropic = new Anthropic();
 
@@ -106,13 +107,21 @@ export async function POST(req: NextRequest) {
     // ── 4. Favicons ───────────────────────────────────────────────────────
     const favicons = await buildFaviconSet(iconBuf);
 
-    // ── 5. Mockups + Brand PDF + Copyright cert — in parallel ─────────────
-    const [mockup2d, mockup3d, wallMockup, pdfBuf, certBuf] = await Promise.all([
+    // ── 5. All generated outputs in parallel ──────────────────────────────
+    const [
+      mockup2d, mockup3d, wallMockup,
+      pdfBuf, certBuf,
+      logoPdf, logoSvg, logoPsd, logoAi,
+    ] = await Promise.all([
       buildBrandBoard(basePng, accentHex),
       buildCardMockup3D(basePng, accentHex),
       buildWallMockup({ logoBuf: basePng, brandName, tagline }),
       buildLogoPrepPDF({ brandName, colors, logoBuf: basePng }),
       buildCopyrightCert({ brandName, ownerName, accentHex, logoBuf: basePng }),
+      buildLogoPDF(basePng, brandName),
+      buildLogoSVG(basePng),
+      buildLogoPSD(basePng),
+      buildLogoAI(basePng, brandName),
     ]);
 
     // ── 6. Pack ZIP ───────────────────────────────────────────────────────
@@ -139,8 +148,14 @@ export async function POST(req: NextRequest) {
       .file("mockup-wall-3d.png",      wallMockup);
 
     zip.folder("05-brand")!
-      .file("brand-guidelines.pdf",     pdfBuf)
+      .file("brand-guidelines.pdf",      pdfBuf)
       .file("copyright-certificate.pdf", certBuf);
+
+    zip.folder("06-print-design")!
+      .file("logo.pdf", logoPdf)
+      .file("logo.svg", logoSvg)
+      .file("logo.psd", logoPsd)
+      .file("logo.ai",  logoAi);
 
     const zipBuf  = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
     const safeName = brandName.replace(/[^a-z0-9]/gi, "-").toLowerCase();

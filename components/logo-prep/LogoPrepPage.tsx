@@ -84,6 +84,10 @@ const OUTPUT_FILES = [
   { group: "04 — Mockups",    label: "mockup-wall-3d.png",     desc: "Gold 3D logo on frosted glass wall",   badge: "bg-yellow-50  border-yellow-200  text-yellow-700" },
   { group: "05 — Brand",      label: "brand-guidelines.pdf",      desc: "Colors, typography & usage rules",  badge: "bg-rose-50    border-rose-200   text-rose-700",  icon: "pdf" },
   { group: "05 — Brand",      label: "copyright-certificate.pdf", desc: "Official copyright ownership cert", badge: "bg-amber-50   border-amber-200  text-amber-700", icon: "pdf" },
+  { group: "06 — Print & Design", label: "logo.pdf",              desc: "2-page print PDF (white + dark bg)", badge: "bg-sky-50     border-sky-200    text-sky-700",   icon: "pdf" },
+  { group: "06 — Print & Design", label: "logo.svg",              desc: "SVG vector container",               badge: "bg-teal-50    border-teal-200   text-teal-700"  },
+  { group: "06 — Print & Design", label: "logo.psd",              desc: "Photoshop flat RGBA document",       badge: "bg-blue-50    border-blue-200   text-blue-700"  },
+  { group: "06 — Print & Design", label: "logo.ai",               desc: "Adobe Illustrator compatible file",  badge: "bg-orange-50  border-orange-200 text-orange-700"},
 ];
 
 const STEPS = ["Remove BG", "Variants", "Favicons", "Mockups", "Brand PDF", "ZIP"];
@@ -195,8 +199,8 @@ export default function LogoPrepPage() {
             </h1>
 
             <p className="text-lg text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
-              Upload your AI-generated logo and get originals, 5 PNG variants, 3 favicon sizes, 2D &amp; 3D mockups, a Brand PDF, and a{" "}
-              <span className="font-medium text-gray-700">Copyright Certificate</span> — 14 files, one ZIP.
+              Upload your AI-generated logo and get PNGs, favicons, mockups, brand PDF, copyright cert, and print-ready{" "}
+              <span className="font-medium text-gray-700">PDF · SVG · PSD · AI</span> — 19 files, one ZIP.
             </p>
           </motion.div>
 
@@ -375,7 +379,7 @@ export default function LogoPrepPage() {
                     </div>
                     <div className="text-center">
                       <p className="text-lg font-bold text-gray-900 mb-1">Your files are ready!</p>
-                      <p className="text-sm text-gray-500">ZIP contains 15 files in 5 folders — originals, variants, favicons, 3 mockups, brand PDF & copyright cert</p>
+                      <p className="text-sm text-gray-500">ZIP contains 19 files in 6 folders — originals, variants, favicons, mockups, brand docs & print/design formats</p>
                     </div>
 
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-1 text-left">
@@ -491,6 +495,13 @@ export default function LogoPrepPage() {
                 useCases: ["Share with designers", "Agency briefs", "Style guide"],
               },
               {
+                title: "Print & Design Formats",
+                file: "06-print-design/",
+                desc: "logo.pdf (2-page), logo.svg, logo.psd (Photoshop flat layer), logo.ai (Illustrator-compatible).",
+                preview: "formats",
+                useCases: ["Printers & print shops", "Photoshop editing", "Illustrator scaling"],
+              },
+              {
                 title: "Copyright Certificate",
                 file: "05-brand/copyright-certificate.pdf",
                 desc: "Official 1-page certificate of copyright ownership with cert number, date, seal, and signature lines.",
@@ -519,6 +530,7 @@ export default function LogoPrepPage() {
                       : item.preview === "mockup2d" ? { background: "linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)" }
                       : item.preview === "mockup3d" ? { background: "linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%)" }
                       : item.preview === "wall"    ? { background: "linear-gradient(135deg, #0a0e1f 0%, #1e2b5e 100%)" }
+                      : item.preview === "formats" ? { background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)" }
                       : item.preview === "cert"    ? { background: "linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)" }
                       : { background: "#f9fafb" }
                   }
@@ -542,6 +554,12 @@ export default function LogoPrepPage() {
                     </div>
                   ) : item.preview === "mockup3d" ? (
                     <div className="w-20 h-12 rounded bg-white shadow-lg flex items-center justify-center text-sm font-bold text-gray-600" style={{transform:"perspective(200px) rotateY(-20deg) rotateX(5deg)"}}>CC</div>
+                  ) : item.preview === "formats" ? (
+                    <div className="flex items-center gap-2">
+                      {["PDF","SVG","PSD","AI"].map((ext) => (
+                        <div key={ext} className="px-2 py-1 rounded text-xs font-bold bg-white border border-sky-200 text-sky-700 shadow-sm">{ext}</div>
+                      ))}
+                    </div>
                   ) : item.preview === "wall" ? (
                     <div className="flex flex-col items-center gap-1">
                       <span className="text-2xl font-bold" style={{background:"linear-gradient(90deg,#8B6914,#D4AF37,#F5E076)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",textShadow:"none"}}>CC</span>
