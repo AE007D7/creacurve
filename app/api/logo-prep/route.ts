@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 import JSZip from "jszip";
 import { extractLogoColors } from "@/lib/render/color-extractor";
-import { buildBrandGuidelinesPDF } from "@/lib/render/pdf-builder";
-import type { BrandData } from "@/lib/types";
+import { buildLogoPrepPDF } from "@/lib/render/logo-prep-pdf";
 
 const REMOVE_BG_API = "https://api.remove.bg/v1.0/removebg";
 
@@ -36,7 +35,7 @@ export async function POST(req: NextRequest) {
     // ── 1. Remove background ──────────────────────────────────────────────
     const rbgForm = new FormData();
     rbgForm.append("image_file", new Blob([inputBuf], { type: file.type }), file.name);
-    rbgForm.append("size", "auto");
+    rbgForm.append("size", "full");
 
     const rbgRes = await fetch(REMOVE_BG_API, {
       method: "POST",
@@ -60,40 +59,8 @@ export async function POST(req: NextRequest) {
       extractLogoColors(transparentBuf),
     ]);
 
-    // ── 3. Build minimal BrandData from extracted colors ──────────────────
-    const primary   = colors.slice(0, 2);
-    const secondary = colors.slice(2, 4);
-    const accent    = colors.slice(4);
-
-    const brandData: BrandData = {
-      primaryColors:   primary.length   ? primary   : [{ hex: "#111111", rgb: { r: 17,  g: 17,  b: 17  }, name: "Ink",    usage: "Primary" }],
-      secondaryColors: secondary.length ? secondary : [{ hex: "#666666", rgb: { r: 102, g: 102, b: 102 }, name: "Stone",  usage: "Secondary" }],
-      accentColors:    accent.length    ? accent    : [{ hex: "#7c3aed", rgb: { r: 124, g: 58,  b: 237 }, name: "Violet", usage: "Accent" }],
-      style: "minimal",
-      personality: ["Professional", "Modern", "Trustworthy"],
-      industry: "General",
-      targetAudience: "General audience",
-      fontPairings: [
-        {
-          heading: "Inter",
-          body: "Inter",
-          mood: "Clean and modern",
-          googleFontsUrl: "https://fonts.google.com/specimen/Inter",
-        },
-      ],
-      brandVoice: {
-        tone: "Professional and approachable",
-        vocabulary: ["Quality", "Innovation", "Trust"],
-        examples: [`${brandName} delivers excellence in every detail.`],
-      },
-      taglineSuggestions: [`${brandName} — Built to last.`, `The mark of quality.`],
-      designPrinciples: ["Clarity", "Consistency", "Confidence"],
-    };
-
-    // ── 4. Build PDF ───────────────────────────────────────────────────────
-    // Pass the transparent PNG as a data URL so the PDF builder can embed it
-    const logoDataUrl = `data:image/png;base64,${transparentBuf.toString("base64")}`;
-    const pdfBuf = await buildBrandGuidelinesPDF({ brandName, brandData, logoUrl: logoDataUrl });
+    // ── 3. Build PDF (US Letter portrait, 8.5×11") ────────────────────────
+    const pdfBuf = await buildLogoPrepPDF({ brandName, colors, logoBuf: transparentBuf });
 
     // ── 5. Pack ZIP ────────────────────────────────────────────────────────
     const zip = new JSZip();
