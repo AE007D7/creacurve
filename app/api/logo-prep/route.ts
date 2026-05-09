@@ -7,6 +7,7 @@ import { buildLogoPrepPDF } from "@/lib/render/logo-prep-pdf";
 import { buildBrandBoard, buildCardMockup3D, buildFaviconSet } from "@/lib/render/logo-mockup";
 import { buildCopyrightCert } from "@/lib/render/copyright-cert";
 import { buildWallMockup } from "@/lib/render/wall-mockup";
+import { buildCreativeMockups } from "@/lib/render/creative-mockups";
 import { buildLogoPDF, buildLogoSVG, buildLogoPSD, buildLogoAI } from "@/lib/render/logo-formats";
 
 const anthropic = new Anthropic();
@@ -112,6 +113,7 @@ export async function POST(req: NextRequest) {
       mockup2d, mockup3d, wallMockup,
       pdfBuf, certBuf,
       logoPdf, logoSvg, logoPsd, logoAi,
+      creatives,
     ] = await Promise.all([
       buildBrandBoard(basePng, accentHex),
       buildCardMockup3D(basePng, accentHex),
@@ -122,6 +124,7 @@ export async function POST(req: NextRequest) {
       buildLogoSVG(basePng),
       buildLogoPSD(basePng),
       buildLogoAI(basePng, brandName),
+      buildCreativeMockups({ logoBuf: basePng, brandName, tagline, accentHex }),
     ]);
 
     // ── 6. Pack ZIP ───────────────────────────────────────────────────────
@@ -150,6 +153,9 @@ export async function POST(req: NextRequest) {
     zip.folder("05-brand")!
       .file("brand-guidelines.pdf",      pdfBuf)
       .file("copyright-certificate.pdf", certBuf);
+
+    const creativesFolder = zip.folder("07-ai-creatives")!;
+    for (const { name, buf } of creatives) creativesFolder.file(name, buf);
 
     zip.folder("06-print-design")!
       .file("logo.pdf", logoPdf)

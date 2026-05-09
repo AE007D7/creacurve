@@ -87,7 +87,11 @@ const OUTPUT_FILES = [
   { group: "06 — Print & Design", label: "logo.pdf",              desc: "2-page print PDF (white + dark bg)", badge: "bg-sky-50     border-sky-200    text-sky-700",   icon: "pdf" },
   { group: "06 — Print & Design", label: "logo.svg",              desc: "SVG vector container",               badge: "bg-teal-50    border-teal-200   text-teal-700"  },
   { group: "06 — Print & Design", label: "logo.psd",              desc: "Photoshop flat RGBA document",       badge: "bg-blue-50    border-blue-200   text-blue-700"  },
-  { group: "06 — Print & Design", label: "logo.ai",               desc: "Adobe Illustrator compatible file",  badge: "bg-orange-50  border-orange-200 text-orange-700"},
+  { group: "06 — Print & Design", label: "logo.ai",                   desc: "Adobe Illustrator compatible file",  badge: "bg-orange-50  border-orange-200 text-orange-700"},
+  { group: "07 — AI Creatives",   label: "mockup-business-card.png",  desc: "Business card on marble desk",      badge: "bg-pink-50    border-pink-200    text-pink-700"  },
+  { group: "07 — AI Creatives",   label: "mockup-coffee-cup.png",     desc: "Coffee cup in café setting",        badge: "bg-pink-50    border-pink-200    text-pink-700"  },
+  { group: "07 — AI Creatives",   label: "mockup-tshirt.png",         desc: "T-shirt flat lay",                  badge: "bg-pink-50    border-pink-200    text-pink-700"  },
+  { group: "07 — AI Creatives",   label: "mockup-storefront.png",     desc: "Storefront LED signage",            badge: "bg-pink-50    border-pink-200    text-pink-700"  },
 ];
 
 const STEPS = ["Remove BG", "Variants", "Favicons", "Mockups", "Brand PDF", "ZIP"];
@@ -199,12 +203,57 @@ export default function LogoPrepPage() {
             </h1>
 
             <p className="text-lg text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
-              Upload your AI-generated logo and get PNGs, favicons, mockups, brand PDF, copyright cert, and print-ready{" "}
-              <span className="font-medium text-gray-700">PDF · SVG · PSD · AI</span> — 19 files, one ZIP.
+              Upload your logo and get 23 files — transparent PNG, SVG, PSD, PDF, AI, favicons, brand guidelines, copyright cert, and{" "}
+              <span className="font-medium text-gray-700">AI creative mockups</span>. One ZIP, free.
             </p>
           </motion.div>
 
-          {/* ── Card ── */}
+          {/* ── Brand info — always visible ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="mb-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left"
+          >
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Brand name <span className="text-gray-400 font-normal">(PDF & mockups)</span>
+              </label>
+              <input
+                type="text"
+                value={brandName}
+                onChange={(e) => setBrandName(e.target.value)}
+                placeholder="e.g. Acme Studio"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Owner name <span className="text-gray-400 font-normal">(copyright cert)</span>
+              </label>
+              <input
+                type="text"
+                value={ownerName}
+                onChange={(e) => setOwnerName(e.target.value)}
+                placeholder="e.g. John Smith"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Tagline <span className="text-gray-400 font-normal">(wall & creative mockups — optional)</span>
+              </label>
+              <input
+                type="text"
+                value={tagline}
+                onChange={(e) => setTagline(e.target.value)}
+                placeholder="e.g. Where brands come alive"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+              />
+            </div>
+          </motion.div>
+
+          {/* ── Upload/Preview/Processing/Done card ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -215,46 +264,6 @@ export default function LogoPrepPage() {
               {/* IDLE */}
               {state.phase === "idle" && (
                 <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                  {/* Brand + Owner + Tagline inputs */}
-                  <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                        Brand name <span className="text-gray-400 font-normal">(for PDF)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={brandName}
-                        onChange={(e) => setBrandName(e.target.value)}
-                        placeholder="e.g. Acme Studio"
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                        Owner name <span className="text-gray-400 font-normal">(copyright cert)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={ownerName}
-                        onChange={(e) => setOwnerName(e.target.value)}
-                        placeholder="e.g. John Smith"
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div className="sm:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                        Tagline <span className="text-gray-400 font-normal">(wall mockup — optional)</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={tagline}
-                        onChange={(e) => setTagline(e.target.value)}
-                        placeholder="e.g. Where brands come alive"
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-
                   <div
                     className={`border-2 border-dashed rounded-2xl p-12 cursor-pointer transition-all duration-200 ${
                       dragOver
@@ -379,7 +388,7 @@ export default function LogoPrepPage() {
                     </div>
                     <div className="text-center">
                       <p className="text-lg font-bold text-gray-900 mb-1">Your files are ready!</p>
-                      <p className="text-sm text-gray-500">ZIP contains 19 files in 6 folders — originals, variants, favicons, mockups, brand docs & print/design formats</p>
+                      <p className="text-sm text-gray-500">ZIP contains 23 files in 7 folders — originals, variants, favicons, mockups, brand docs, print formats & AI creatives</p>
                     </div>
 
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-1 text-left">
@@ -617,6 +626,36 @@ export default function LogoPrepPage() {
                 <h3 className="font-semibold text-gray-900">{s.title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="py-16 border-t border-gray-100">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 text-center">
+            Frequently asked questions
+          </h2>
+          <p className="text-gray-500 text-center mb-10">Everything you need to know about logo file formats</p>
+          <div className="space-y-4">
+            {[
+              { q: "Is this tool free?", a: "Yes — completely free. No account, no watermark, no credit card. Upload your logo and download all 23 files instantly." },
+              { q: "What formats do I get?", a: "Transparent PNG, black & white versions, logo on white & dark backgrounds, SVG, PSD (Photoshop), PDF (print-ready), Adobe AI, favicons (16/32/192px), brand guidelines PDF, copyright certificate, 2D brand board, 3D card mockup, 3D wall mockup, and 4 AI creative mockups." },
+              { q: "Can I convert my logo to SVG?", a: "Yes. The tool wraps your logo in a proper SVG 1.1 container with xlink:href embedding — compatible with Illustrator, Inkscape, Figma, and all browsers." },
+              { q: "How do I get a Photoshop PSD from my logo?", a: "The tool generates a flat RGBA PSD file from your logo's pixel data. It opens in Photoshop CS4+, Affinity Photo, and GIMP — no Photoshop needed to create it." },
+              { q: "What is the Adobe Illustrator .ai file?", a: "The .ai file is a PDF 1.4 document with Adobe Illustrator identification headers. Illustrator CS2 and newer opens it as a native AI file." },
+              { q: "How are the favicons generated?", a: "AI analyzes your logo to find the icon/symbol portion, crops it, and exports it at 16×16, 32×32, and 192×192 pixels — the standard sizes for browser tabs, PWA manifests, and Android home screens." },
+              { q: "What are the AI creative mockups?", a: "Four photorealistic AI-generated scenes: your logo on a business card, a coffee cup, a t-shirt, and a storefront sign. When Stability AI or DALL-E API keys are configured, these are full AI images. Otherwise a high-quality sharp-rendered composite is used." },
+              { q: "What image formats can I upload?", a: "JPEG, PNG, and WebP. For best quality, upload the largest available version of your logo." },
+            ].map(({ q, a }) => (
+              <details key={q} className="group border border-gray-100 rounded-2xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer list-none">
+                  <span className="text-sm font-semibold text-gray-900">{q}</span>
+                  <span className="text-gray-400 group-open:rotate-180 transition-transform duration-200 flex-shrink-0">▾</span>
+                </summary>
+                <div className="px-6 pb-5 text-sm text-gray-500 leading-relaxed border-t border-gray-50">{a}</div>
+              </details>
             ))}
           </div>
         </div>
