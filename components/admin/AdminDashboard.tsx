@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { ContentDashboard } from "./ContentDashboard";
 
 interface DailyPoint { date: string; count: number }
 interface Stats {
@@ -173,31 +174,41 @@ export function AdminDashboard() {
   }
 
   /* ── dashboard ──────────────────────────────────────────────────────── */
+  const [adminTab, setAdminTab] = useState<"stats" | "content">("stats");
+
   return (
     <div className="min-h-screen bg-zinc-50">
       {/* header */}
       <header className="bg-white border-b border-zinc-100 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <div className="w-9 h-9 bg-violet-600 rounded-xl flex items-center justify-center">
             <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 text-white" stroke="currentColor" strokeWidth="2.5">
               <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/>
             </svg>
           </div>
-          <span className="font-black text-zinc-900 text-lg">CreaCurve Admin</span>
+          <span className="font-black text-zinc-900 text-lg hidden sm:block">CreaCurve Admin</span>
+          {/* nav tabs */}
+          <div className="flex gap-1 bg-zinc-100 p-1 rounded-xl">
+            {([["stats", "📊 Stats"], ["content", "✨ Content"]] as const).map(([t, label]) => (
+              <button key={t} onClick={() => setAdminTab(t)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+                  adminTab === t ? "bg-white shadow text-zinc-900" : "text-zinc-500 hover:text-zinc-700"
+                }`}>
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="flex items-center gap-3">
           {lastSync && <span className="text-xs text-zinc-400 hidden sm:block">Updated {lastSync}</span>}
-          <button
-            onClick={() => fetchStats(secret)}
-            disabled={loading}
-            className="text-xs bg-violet-50 hover:bg-violet-100 text-violet-700 font-semibold px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
-          >
-            {loading ? "…" : "Refresh"}
-          </button>
-          <button
-            onClick={() => { setAuthed(false); setStats(null); setSecret(""); }}
-            className="text-xs text-zinc-400 hover:text-zinc-700 transition-colors"
-          >
+          {adminTab === "stats" && (
+            <button onClick={() => fetchStats(secret)} disabled={loading}
+              className="text-xs bg-violet-50 hover:bg-violet-100 text-violet-700 font-semibold px-4 py-2 rounded-lg transition-colors disabled:opacity-50">
+              {loading ? "…" : "Refresh"}
+            </button>
+          )}
+          <button onClick={() => { setAuthed(false); setStats(null); setSecret(""); }}
+            className="text-xs text-zinc-400 hover:text-zinc-700 transition-colors">
             Sign out
           </button>
         </div>
@@ -205,54 +216,42 @@ export function AdminDashboard() {
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10 flex flex-col gap-8">
 
-        {/* stat cards */}
-        {stats && (
+        {adminTab === "stats" && (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <StatCard label="Logos generated today"      value={fmt(stats.today)}     />
-              <StatCard label="This month"                 value={fmt(stats.thisMonth)}  />
-              <StatCard label="All-time total"             value={fmt(stats.total)}      />
+            {/* stat cards */}
+            {stats && (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <StatCard label="Logos generated today"      value={fmt(stats.today)}     />
+                  <StatCard label="This month"                 value={fmt(stats.thisMonth)}  />
+                  <StatCard label="All-time total"             value={fmt(stats.total)}      />
+                </div>
+                <BarChart daily={stats.daily} />
+                <MiniChart daily={stats.daily} />
+              </>
+            )}
+
+            {/* external links */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-4">External tools</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <ExternalLink href="https://vercel.com/dashboard"              label="Vercel Analytics"        sub="Page views, unique visitors, top pages"      />
+                <ExternalLink href="https://search.google.com/search-console"  label="Google Search Console"   sub="Clicks, impressions, keyword rankings"       />
+                <ExternalLink href="https://dashboard.stripe.com"              label="Stripe Dashboard"         sub="Revenue, payments, customers"                />
+                <ExternalLink href="https://console.upstash.com"               label="Upstash Console"          sub="Redis usage and logo stat raw keys"           />
+              </div>
             </div>
 
-            <BarChart daily={stats.daily} />
-            <MiniChart daily={stats.daily} />
+            {stats && stats.total === 0 && (
+              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-sm text-amber-800">
+                <p className="font-bold mb-1">No stats yet</p>
+                <p>Add <code className="bg-amber-100 px-1 rounded">UPSTASH_REDIS_REST_URL</code> and <code className="bg-amber-100 px-1 rounded">UPSTASH_REDIS_REST_TOKEN</code> to your env vars.</p>
+              </div>
+            )}
           </>
         )}
 
-        {/* external links */}
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-4">External tools</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <ExternalLink
-              href="https://vercel.com/dashboard"
-              label="Vercel Analytics"
-              sub="Page views, unique visitors, top pages"
-            />
-            <ExternalLink
-              href="https://search.google.com/search-console"
-              label="Google Search Console"
-              sub="Clicks, impressions, keyword rankings"
-            />
-            <ExternalLink
-              href="https://dashboard.stripe.com"
-              label="Stripe Dashboard"
-              sub="Revenue, payments, customers"
-            />
-            <ExternalLink
-              href="https://console.upstash.com"
-              label="Upstash Console"
-              sub="Redis usage and logo stat raw keys"
-            />
-          </div>
-        </div>
-
-        {/* setup note */}
-        {stats && stats.total === 0 && (
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 text-sm text-amber-800">
-            <p className="font-bold mb-1">No stats yet</p>
-            <p>Make sure you have added <code className="bg-amber-100 px-1 rounded">UPSTASH_REDIS_REST_URL</code> and <code className="bg-amber-100 px-1 rounded">UPSTASH_REDIS_REST_TOKEN</code> to your environment variables. Logos generated after that will be counted automatically.</p>
-          </div>
-        )}
+        {adminTab === "content" && <ContentDashboard secret={secret} />}
 
       </main>
     </div>
