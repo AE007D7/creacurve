@@ -1,12 +1,13 @@
 /**
- * Creative brand mockups — 4 real-world placement scenes.
+ * Creative brand mockups — 4 high-quality sharp + SVG composites.
  *
- * AI path  → Stability AI (STABILITY_API_KEY) — prompts with brand name, image returned as-is
- *           → DALL-E 3 (OPENAI_API_KEY)       — generates EMPTY background scene, then
- *                                                composites the real logo on top with sharp
- * Fallback → pure Sharp compositing (no external API needed)
+ * No external AI API needed. Each scene is built from SVG layers
+ * composited with sharp so the real client logo is always used.
  *
- * Output: up to 4 items, each ~1400×1050 PNG (≈ 4:3)
+ * Optional: STABILITY_API_KEY → Stability AI generates the scene;
+ * the real logo is then composited on top with sharp.
+ *
+ * Output: 4 items, each 1400×1050 PNG (4:3)
  */
 
 import sharp from "sharp";
@@ -14,251 +15,407 @@ import sharp from "sharp";
 const W = 1400;
 const H = 1050;
 
-/* ── mockup definitions ─────────────────────────────────────────────────────*/
-
-interface LogoPlacement {
-  /** Horizontal centre as fraction of W */
-  xFrac: number;
-  /** Vertical centre as fraction of H */
-  yFrac: number;
-  /** Max width the logo should be resized to */
-  maxW: number;
-}
-
-interface MockupDef {
-  name: string;
-  /** Stability AI prompt — may reference brand name */
-  stabilityPrompt: (brandName: string, tagline: string) => string;
-  /** DALL-E 3 prompt — empty scene, NO logo, NO text */
-  dallePrompt: string;
-  /** Diagonal-gradient from/to colors [R,G,B] for sharp fallback */
-  bgFrom: [number, number, number];
-  bgTo:   [number, number, number];
-  /** Product surface rectangle dimensions (sharp fallback) */
-  surface: { w: number; h: number };
-  /** Where to composite the real logo onto a DALL-E scene */
-  logoPlacement: LogoPlacement;
-}
-
-const MOCKUPS: MockupDef[] = [
-  {
-    name: "mockup-business-card.png",
-    stabilityPrompt: (brandName) =>
-      `Professional luxury business card mockup, top-down flat lay on white marble surface, the card features the brand logo '${brandName}' in elegant typography, minimalist design with subtle gold accents, soft studio lighting, photorealistic product photography, 4K resolution`,
-    dallePrompt:
-      "Top-down flat lay photo of a blank white business card on white marble surface, soft shadows, studio lighting, photorealistic, 4K, no text, no logo, no print",
-    bgFrom:  [248, 248, 246],
-    bgTo:    [235, 232, 228],
-    surface: { w: 700, h: 420 },
-    logoPlacement: { xFrac: 0.5, yFrac: 0.5, maxW: 280 },
-  },
-  {
-    name: "mockup-coffee-cup.png",
-    stabilityPrompt: (brandName) =>
-      `Premium takeaway coffee cup mockup with '${brandName}' logo printed on white kraft cup, cozy modern cafe background bokeh, warm lighting, photorealistic product shot, 4K`,
-    dallePrompt:
-      "Premium white kraft takeaway coffee cup, cozy modern cafe background with bokeh, warm lighting, photorealistic product shot, 4K, no logo no text no print",
-    bgFrom:  [62,  38,  20],
-    bgTo:    [120, 72,  30],
-    surface: { w: 400, h: 600 },
-    logoPlacement: { xFrac: 0.5, yFrac: 0.38, maxW: 130 },
-  },
-  {
-    name: "mockup-tshirt.png",
-    stabilityPrompt: (brandName) =>
-      `Premium white t-shirt flat lay mockup on clean light gray background, '${brandName}' logo printed on chest area, minimalist lifestyle product photography, soft natural lighting, high resolution`,
-    dallePrompt:
-      "White t-shirt flat lay on clean light gray background, soft natural lighting, high resolution product photography, no print no logo no text",
-    bgFrom:  [240, 240, 240],
-    bgTo:    [220, 220, 220],
-    surface: { w: 600, h: 700 },
-    logoPlacement: { xFrac: 0.5, yFrac: 0.40, maxW: 200 },
-  },
-  {
-    name: "mockup-storefront.png",
-    stabilityPrompt: (brandName) =>
-      `Modern retail storefront sign mockup, '${brandName}' logo on illuminated LED signage above a sleek glass entrance, urban street photography, golden hour lighting, photorealistic, high resolution`,
-    dallePrompt:
-      "Modern retail glass storefront entrance at night, illuminated from inside, urban street, golden hour, photorealistic, no signage no text no logo",
-    bgFrom:  [8,  12,  28],
-    bgTo:    [20, 30,  60],
-    surface: { w: 800, h: 500 },
-    logoPlacement: { xFrac: 0.5, yFrac: 0.35, maxW: 280 },
-  },
-];
-
-/* ── colour helpers ─────────────────────────────────────────────────────────*/
+/* ── helpers ─────────────────────────────────────────────────────────────── */
 
 function lerp(a: number, b: number, t: number) {
   return Math.round(a + (b - a) * t);
 }
 
-/** Diagonal gradient RGB buffer */
-function diagonalBg(
-  w: number,
-  h: number,
+function clamp(v: number, lo = 0, hi = 255) {
+  return Math.min(hi, Math.max(lo, v));
+}
+
+/** Diagonal gradient RGB pixel buffer */
+function gradientBuf(
+  w: number, h: number,
   from: [number, number, number],
   to:   [number, number, number],
 ): Buffer {
   const buf = Buffer.alloc(w * h * 3);
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
-      const t = (x / w) * 0.55 + (y / h) * 0.45;
+      const t = (x / w) * 0.5 + (y / h) * 0.5;
       const i = (y * w + x) * 3;
-      buf[i]   = lerp(from[0], to[0], t);
-      buf[i+1] = lerp(from[1], to[1], t);
-      buf[i+2] = lerp(from[2], to[2], t);
+      buf[i]   = clamp(lerp(from[0], to[0], t));
+      buf[i+1] = clamp(lerp(from[1], to[1], t));
+      buf[i+2] = clamp(lerp(from[2], to[2], t));
     }
   }
   return buf;
 }
 
-/** Solid RGBA buffer */
-function solid(w: number, h: number, r: number, g: number, b: number, a: number): Buffer {
-  const buf = Buffer.alloc(w * h * 4);
-  for (let i = 0; i < buf.length; i += 4) {
-    buf[i] = r; buf[i+1] = g; buf[i+2] = b; buf[i+3] = a;
-  }
-  return buf;
-}
-
-/* ── SVG label helper ────────────────────────────────────────────────────── */
-
-function svgBrandLabel(text: string, maxW: number, dark: boolean): Buffer {
-  const fontSize = Math.min(48, Math.floor(maxW / (text.length * 0.62 + 1)));
-  const fill     = dark ? "#ffffff" : "#1a1a1a";
-  const svgW     = maxW;
-  const svgH     = 80;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}">
-    <text x="${svgW / 2}" y="54" text-anchor="middle"
-          font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-          font-size="${fontSize}" font-weight="700"
-          fill="${fill}" letter-spacing="3">${text}</text>
-  </svg>`;
-  return Buffer.from(svg);
-}
-
-/* ── sharp fallback ──────────────────────────────────────────────────────── */
-
-async function buildSharpFallback(
-  def:       MockupDef,
-  logoBuf:   Buffer,
-  brandName: string,
+async function makePng(
+  raw: Buffer,
+  w: number, h: number, channels: 3 | 4 = 3,
 ): Promise<Buffer> {
-  const { bgFrom, bgTo, surface } = def;
+  return sharp(raw, { raw: { width: w, height: h, channels } }).png().toBuffer();
+}
 
-  // 1 — Background
-  const bgRaw = diagonalBg(W, H, bgFrom, bgTo);
-  const bgBuf = await sharp(bgRaw, { raw: { width: W, height: H, channels: 3 } })
-    .png()
-    .toBuffer();
+/** Resize logo to fit maxW × maxH preserving aspect ratio */
+async function fitLogo(logoBuf: Buffer, maxW: number, maxH: number): Promise<Buffer> {
+  return sharp(logoBuf).resize(maxW, maxH, { fit: "inside", withoutEnlargement: false }).png().toBuffer();
+}
 
-  // 2 — White product surface (centered)
-  const surfX = Math.round((W - surface.w) / 2);
-  const surfY = Math.round((H - surface.h) / 2);
+/* ── 1. BUSINESS CARD ────────────────────────────────────────────────────── */
 
-  const surfRaw = solid(surface.w, surface.h, 255, 255, 255, 230);
-  const surfBuf = await sharp(surfRaw, {
-    raw: { width: surface.w, height: surface.h, channels: 4 },
-  })
-    .png()
-    .toBuffer();
+async function buildBusinessCard(logoBuf: Buffer, brandName: string): Promise<Buffer> {
+  // Background — soft warm cream gradient
+  const bgRaw = gradientBuf(W, H, [250, 248, 244], [232, 228, 220]);
+  const bg    = await makePng(bgRaw, W, H);
 
-  // 3 — Logo resized to fit inside the surface with padding
-  const logoMaxW = surface.w - 80;
-  const logoMaxH = surface.h - 120;
-  const resized  = await sharp(logoBuf)
-    .resize(logoMaxW, logoMaxH, { fit: "inside" })
-    .png()
-    .toBuffer();
-  const lMeta = await sharp(resized).metadata();
-  const lW    = lMeta.width!;
-  const lH    = lMeta.height!;
+  const CARD_W = 820;
+  const CARD_H = 480;
+  const CARD_X = Math.round((W - CARD_W) / 2);
+  const CARD_Y = Math.round((H - CARD_H) / 2) - 20;
 
-  // Centre the logo within the surface
-  const logoX = surfX + Math.round((surface.w - lW) / 2);
-  const logoY = surfY + Math.round((surface.h - lH) / 2) - 20;
+  // Card shadow — blurred dark ellipse
+  const shadowSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+      <defs>
+        <filter id="bl" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="32"/>
+        </filter>
+      </defs>
+      <rect x="${CARD_X + 20}" y="${CARD_Y + 40}" width="${CARD_W}" height="${CARD_H}"
+            rx="18" fill="rgba(0,0,0,0.22)" filter="url(#bl)"/>
+    </svg>`,
+  );
 
-  // 4 — Brand name label below the surface
-  const isDark   = bgFrom[0] < 100; // dark backgrounds
-  const labelSvg = svgBrandLabel(brandName, Math.min(surface.w, 700), isDark);
-  const labelBuf = await sharp(labelSvg).png().toBuffer();
-  const lbMeta   = await sharp(labelBuf).metadata();
-  const labelX   = Math.round((W - lbMeta.width!) / 2);
-  const labelY   = surfY + surface.h + 20;
+  // Card face — white with thin border
+  const accent = "#7c3aed";
+  const safeLabel = brandName.replace(/[<>&"']/g, "");
+  const fontSize  = Math.min(28, Math.max(14, Math.floor(580 / (safeLabel.length || 1))));
 
-  // 5 — Compose
-  return sharp(bgBuf)
+  const cardSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${CARD_W}" height="${CARD_H}">
+      <!-- card bg -->
+      <rect width="${CARD_W}" height="${CARD_H}" rx="16" fill="#ffffff"/>
+      <!-- left accent strip -->
+      <rect width="7" height="${CARD_H}" rx="4" fill="${accent}"/>
+      <!-- bottom brand bar -->
+      <rect y="${CARD_H - 54}" width="${CARD_W}" height="54" rx="0" fill="#f8f7ff"/>
+      <rect y="${CARD_H - 54}" width="${CARD_W}" height="2" fill="${accent}" opacity="0.2"/>
+      <!-- brand name -->
+      <text x="${CARD_W / 2}" y="${CARD_H - 18}"
+            text-anchor="middle"
+            font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+            font-size="${fontSize}" font-weight="700"
+            fill="#1a1a2e" letter-spacing="2">${safeLabel}</text>
+      <!-- card border -->
+      <rect width="${CARD_W}" height="${CARD_H}" rx="16" fill="none" stroke="#e8e5ee" stroke-width="1.5"/>
+    </svg>`,
+  );
+
+  const logo  = await fitLogo(logoBuf, CARD_W - 120, CARD_H - 120);
+  const lMeta = await sharp(logo).metadata();
+  const lW = lMeta.width!, lH = lMeta.height!;
+  const logoX = CARD_X + Math.round((CARD_W - lW) / 2);
+  const logoY = CARD_Y + Math.round((CARD_H - 54 - lH) / 2);
+
+  return sharp(bg)
     .composite([
-      { input: surfBuf,  left: surfX,  top: surfY  },
-      { input: resized,  left: logoX,  top: logoY  },
-      { input: labelBuf, left: labelX, top: labelY },
+      { input: await sharp(shadowSvg).png().toBuffer(), left: 0, top: 0 },
+      { input: await sharp(cardSvg).png().toBuffer(),   left: CARD_X, top: CARD_Y },
+      { input: logo, left: logoX, top: logoY },
     ])
     .png()
     .toBuffer();
 }
 
-/* ── logo-onto-scene compositor ──────────────────────────────────────────── */
+/* ── 2. COFFEE CUP ───────────────────────────────────────────────────────── */
 
-/**
- * Resize AI-generated scene to W×H, then composite the real logo on top
- * at the position defined by MockupDef.logoPlacement.
- */
-async function compositeLogoOntoScene(
-  scene:   Buffer,
-  logoBuf: Buffer,
-  def:     MockupDef,
-): Promise<Buffer> {
-  const { xFrac, yFrac, maxW } = def.logoPlacement;
+async function buildCoffeeCup(logoBuf: Buffer, brandName: string): Promise<Buffer> {
+  // Background — warm café dark brown
+  const bgRaw = gradientBuf(W, H, [38, 22, 10], [72, 42, 18]);
+  const bg    = await makePng(bgRaw, W, H);
 
-  // 1 — Resize scene to canonical dimensions
-  const sceneBuf = await sharp(scene)
-    .resize(W, H, { fit: "cover" })
-    .png()
-    .toBuffer();
+  const CUP_W   = 360;
+  const CUP_H   = 520;
+  const CUP_X   = Math.round((W - CUP_W) / 2);
+  const CUP_Y   = Math.round((H - CUP_H) / 2) - 30;
 
-  // 2 — Resize logo to fit within maxW × maxW (preserve aspect ratio)
-  const resizedLogo = await sharp(logoBuf)
-    .resize(maxW, maxW, { fit: "inside" })
-    .png()
-    .toBuffer();
+  const safeLabel = brandName.replace(/[<>&"']/g, "");
+  const fontSize  = Math.min(22, Math.max(11, Math.floor(280 / (safeLabel.length || 1))));
 
-  const lMeta = await sharp(resizedLogo).metadata();
-  const lW = lMeta.width!;
-  const lH = lMeta.height!;
+  // Cup SVG — front-facing cylinder style
+  const cupSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${CUP_W}" height="${CUP_H}">
+      <defs>
+        <linearGradient id="cupGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#e8e0d6"/>
+          <stop offset="40%"  stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="#c8bfb2"/>
+        </linearGradient>
+        <linearGradient id="lidGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#d4c9bb"/>
+          <stop offset="100%" stop-color="#b5aa9e"/>
+        </linearGradient>
+        <filter id="shadow">
+          <feGaussianBlur stdDeviation="8" result="blur"/>
+          <feComposite in="SourceGraphic"/>
+        </filter>
+      </defs>
+      <!-- lid -->
+      <rect x="10" y="0" width="${CUP_W - 20}" height="52" rx="10" fill="url(#lidGrad)"/>
+      <!-- lid rim -->
+      <rect x="0" y="42" width="${CUP_W}" height="14" rx="7" fill="#c0b4a6"/>
+      <!-- cup body -->
+      <path d="M 20,56 L 0,${CUP_H} L ${CUP_W},${CUP_H} L ${CUP_W - 20},56 Z" fill="url(#cupGrad)"/>
+      <!-- sleeve band -->
+      <rect x="0" y="${Math.round(CUP_H * 0.38)}" width="${CUP_W}" height="${Math.round(CUP_H * 0.28)}"
+            fill="#f0ebe3" opacity="0.9"/>
+      <line x1="0" y1="${Math.round(CUP_H * 0.38)}" x2="${CUP_W}" y2="${Math.round(CUP_H * 0.38)}"
+            stroke="#ccc4b8" stroke-width="1.5"/>
+      <line x1="0" y1="${Math.round(CUP_H * 0.66)}" x2="${CUP_W}" y2="${Math.round(CUP_H * 0.66)}"
+            stroke="#ccc4b8" stroke-width="1.5"/>
+      <!-- brand name on sleeve -->
+      <text x="${CUP_W / 2}" y="${Math.round(CUP_H * 0.585)}"
+            text-anchor="middle"
+            font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+            font-size="${fontSize}" font-weight="600" fill="#5a4a3a" letter-spacing="1">
+        ${safeLabel}
+      </text>
+      <!-- bottom ellipse -->
+      <ellipse cx="${CUP_W / 2}" cy="${CUP_H}" rx="${CUP_W / 2}" ry="16" fill="#b0a494"/>
+    </svg>`,
+  );
 
-  // 3 — Compute placement (centred on xFrac, yFrac)
-  const left = Math.round(W * xFrac - lW / 2);
-  const top  = Math.round(H * yFrac - lH / 2);
+  // Steam SVG — overlaid above cup
+  const steamSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+      <defs><filter id="bl"><feGaussianBlur stdDeviation="5"/></filter></defs>
+      <path d="M ${W/2 - 40},${CUP_Y - 20} Q ${W/2 - 60},${CUP_Y - 60} ${W/2 - 40},${CUP_Y - 100}"
+            stroke="rgba(255,255,255,0.25)" stroke-width="6" fill="none" stroke-linecap="round" filter="url(#bl)"/>
+      <path d="M ${W/2},${CUP_Y - 10} Q ${W/2 + 20},${CUP_Y - 60} ${W/2},${CUP_Y - 110}"
+            stroke="rgba(255,255,255,0.25)" stroke-width="6" fill="none" stroke-linecap="round" filter="url(#bl)"/>
+      <path d="M ${W/2 + 40},${CUP_Y - 20} Q ${W/2 + 60},${CUP_Y - 60} ${W/2 + 40},${CUP_Y - 100}"
+            stroke="rgba(255,255,255,0.25)" stroke-width="6" fill="none" stroke-linecap="round" filter="url(#bl)"/>
+    </svg>`,
+  );
 
-  // 4 — Composite and return
-  return sharp(sceneBuf)
-    .composite([{ input: resizedLogo, left, top }])
+  // Logo on sleeve
+  const SLEEVE_H  = Math.round(CUP_H * 0.28);
+  const logo      = await fitLogo(logoBuf, CUP_W - 60, SLEEVE_H - 36);
+  const lMeta     = await sharp(logo).metadata();
+  const logoLeft  = CUP_X + Math.round((CUP_W - lMeta.width!) / 2);
+  const logoTop   = CUP_Y + Math.round(CUP_H * 0.38) + Math.round((SLEEVE_H - lMeta.height!) / 2) - 22;
+
+  return sharp(bg)
+    .composite([
+      { input: await sharp(steamSvg).png().toBuffer(), left: 0, top: 0 },
+      { input: await sharp(cupSvg).png().toBuffer(),   left: CUP_X, top: CUP_Y },
+      { input: logo, left: logoLeft, top: logoTop },
+    ])
     .png()
     .toBuffer();
 }
 
-/* ── AI path — Stability AI ─────────────────────────────────────────────── */
+/* ── 3. T-SHIRT ───────────────────────────────────────────────────────────── */
 
-async function buildStabilityImage(
-  prompt: string,
-  apiKey: string,
-): Promise<Buffer | null> {
+async function buildTshirt(logoBuf: Buffer, brandName: string): Promise<Buffer> {
+  // Background — clean off-white
+  const bgRaw = gradientBuf(W, H, [245, 245, 248], [228, 228, 234]);
+  const bg    = await makePng(bgRaw, W, H);
+
+  const TS_W = 700;
+  const TS_H = 760;
+  const TS_X = Math.round((W - TS_W) / 2);
+  const TS_Y = Math.round((H - TS_H) / 2) - 20;
+
+  // T-shirt shadow
+  const shadowSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+      <defs><filter id="bl"><feGaussianBlur stdDeviation="28"/></filter></defs>
+      <ellipse cx="${W / 2}" cy="${TS_Y + TS_H - 20}" rx="260" ry="40"
+               fill="rgba(0,0,0,0.18)" filter="url(#bl)"/>
+    </svg>`,
+  );
+
+  // T-shirt path — classic crew-neck shape
+  const sl  = 90;  // shoulder length
+  const nw  = 140; // neck half-width
+  const nh  = 60;  // neck depth
+
+  const tshirtSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${TS_W}" height="${TS_H}">
+      <defs>
+        <linearGradient id="shirtGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"   stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="#f0eff4"/>
+        </linearGradient>
+      </defs>
+      <path d="
+        M ${sl},0
+        C ${sl + 20},0 ${TS_W/2 - nw},${nh * 0.3} ${TS_W/2 - nw},${nh}
+        Q ${TS_W/2},${nh + 30} ${TS_W/2 + nw},${nh}
+        C ${TS_W/2 + nw},${nh * 0.3} ${TS_W - sl - 20},0 ${TS_W - sl},0
+        L ${TS_W},${sl + 20}
+        C ${TS_W - 30},${sl + 40} ${TS_W - 60},${sl + 60} ${TS_W - 70},${sl + 100}
+        L ${TS_W - 80},${TS_H}
+        L 80,${TS_H}
+        L 70,${sl + 100}
+        C 60,${sl + 60} 30,${sl + 40} 0,${sl + 20}
+        Z
+      " fill="url(#shirtGrad)" stroke="#dddde8" stroke-width="1.5"/>
+    </svg>`,
+  );
+
+  // Logo on chest
+  const logo     = await fitLogo(logoBuf, TS_W - 220, 220);
+  const lMeta    = await sharp(logo).metadata();
+  const logoLeft = TS_X + Math.round((TS_W - lMeta.width!) / 2);
+  const logoTop  = TS_Y + 180;
+
+  // Brand name label below logo
+  const safeLabel = brandName.replace(/[<>&"']/g, "");
+  const fontSize  = Math.min(18, Math.max(10, Math.floor(500 / (safeLabel.length || 1))));
+  const labelSvg  = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${TS_W}" height="40">
+      <text x="${TS_W / 2}" y="26" text-anchor="middle"
+            font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+            font-size="${fontSize}" font-weight="500" fill="#9990aa" letter-spacing="3">
+        ${safeLabel}
+      </text>
+    </svg>`,
+  );
+
+  const labelPng  = await sharp(labelSvg).png().toBuffer();
+  const labelLeft = TS_X;
+  const labelTop  = logoTop + lMeta.height! + 14;
+
+  return sharp(bg)
+    .composite([
+      { input: await sharp(shadowSvg).png().toBuffer(), left: 0, top: 0 },
+      { input: await sharp(tshirtSvg).png().toBuffer(), left: TS_X, top: TS_Y },
+      { input: logo,     left: logoLeft, top: logoTop },
+      { input: labelPng, left: labelLeft, top: labelTop },
+    ])
+    .png()
+    .toBuffer();
+}
+
+/* ── 4. STOREFRONT SIGN ──────────────────────────────────────────────────── */
+
+async function buildStorefront(logoBuf: Buffer, brandName: string): Promise<Buffer> {
+  // Background — deep night gradient
+  const bgRaw = gradientBuf(W, H, [8, 10, 22], [18, 24, 52]);
+  const bg    = await makePng(bgRaw, W, H);
+
+  const BOX_W = 820;
+  const BOX_H = 340;
+  const BOX_X = Math.round((W - BOX_W) / 2);
+  const BOX_Y = Math.round(H * 0.28);
+
+  const safeLabel = brandName.replace(/[<>&"']/g, "");
+  const fontSize  = Math.min(32, Math.max(14, Math.floor(680 / (safeLabel.length || 1))));
+
+  // Glow bloom behind box
+  const glowSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="60" result="blur"/>
+          <feComposite in="SourceGraphic"/>
+        </filter>
+        <radialGradient id="rg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#a78bfa" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="${W / 2}" cy="${BOX_Y + BOX_H / 2}" rx="${BOX_W * 0.7}" ry="${BOX_H * 1.1}"
+               fill="url(#rg)" filter="url(#glow)"/>
+    </svg>`,
+  );
+
+  // Sign box — dark frame with inner illuminated panel
+  const signSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${BOX_W}" height="${BOX_H}">
+      <defs>
+        <linearGradient id="innerGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#1e1540"/>
+          <stop offset="100%" stop-color="#16103a"/>
+        </linearGradient>
+        <linearGradient id="frameGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"   stop-color="#4a3f7a"/>
+          <stop offset="100%" stop-color="#2d2552"/>
+        </linearGradient>
+        <filter id="innerGlow">
+          <feGaussianBlur stdDeviation="6" result="b"/>
+          <feComposite in="SourceGraphic"/>
+        </filter>
+      </defs>
+      <!-- outer frame -->
+      <rect width="${BOX_W}" height="${BOX_H}" rx="20" fill="url(#frameGrad)"/>
+      <!-- inner panel -->
+      <rect x="14" y="14" width="${BOX_W - 28}" height="${BOX_H - 28}" rx="12" fill="url(#innerGrad)"/>
+      <!-- corner accents -->
+      <rect x="0" y="0"             width="40" height="4"  rx="2" fill="#7c3aed" opacity="0.8"/>
+      <rect x="0" y="0"             width="4"  height="40" rx="2" fill="#7c3aed" opacity="0.8"/>
+      <rect x="${BOX_W - 40}" y="0" width="40" height="4"  rx="2" fill="#7c3aed" opacity="0.8"/>
+      <rect x="${BOX_W - 4}"  y="0" width="4"  height="40" rx="2" fill="#7c3aed" opacity="0.8"/>
+      <rect x="0" y="${BOX_H - 4}"             width="40" height="4" rx="2" fill="#7c3aed" opacity="0.8"/>
+      <rect x="0" y="${BOX_H - 40}"            width="4"  height="40" rx="2" fill="#7c3aed" opacity="0.8"/>
+      <rect x="${BOX_W - 40}" y="${BOX_H - 4}" width="40" height="4" rx="2" fill="#7c3aed" opacity="0.8"/>
+      <rect x="${BOX_W - 4}"  y="${BOX_H - 40}" width="4" height="40" rx="2" fill="#7c3aed" opacity="0.8"/>
+      <!-- brand name -->
+      <text x="${BOX_W / 2}" y="${BOX_H - 28}"
+            text-anchor="middle"
+            font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+            font-size="${fontSize}" font-weight="300" fill="#a78bfa" letter-spacing="6" opacity="0.9">
+        ${safeLabel}
+      </text>
+    </svg>`,
+  );
+
+  // Street/ground reflection
+  const reflSvg = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+      <defs>
+        <linearGradient id="reflGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="bl2"><feGaussianBlur stdDeviation="4"/></filter>
+      </defs>
+      <rect x="${BOX_X}" y="${BOX_Y + BOX_H}" width="${BOX_W}" height="120"
+            fill="url(#reflGrad)" filter="url(#bl2)"/>
+    </svg>`,
+  );
+
+  // Logo inside sign
+  const logo     = await fitLogo(logoBuf, BOX_W - 120, BOX_H - 110);
+  const lMeta    = await sharp(logo).metadata();
+  // tint logo white/light for dark sign background
+  const logoLight = await sharp(logo)
+    .modulate({ brightness: 1.8, saturation: 0.4 })
+    .png()
+    .toBuffer();
+  const logoLeft = BOX_X + Math.round((BOX_W - lMeta.width!) / 2);
+  const logoTop  = BOX_Y + Math.round((BOX_H - 50 - lMeta.height!) / 2);
+
+  return sharp(bg)
+    .composite([
+      { input: await sharp(glowSvg).png().toBuffer(),  left: 0, top: 0 },
+      { input: await sharp(reflSvg).png().toBuffer(),  left: 0, top: 0 },
+      { input: await sharp(signSvg).png().toBuffer(),  left: BOX_X, top: BOX_Y },
+      { input: logoLight, left: logoLeft, top: logoTop },
+    ])
+    .png()
+    .toBuffer();
+}
+
+/* ── Stability AI path ───────────────────────────────────────────────────── */
+
+async function buildStabilityImage(prompt: string, apiKey: string): Promise<Buffer | null> {
   try {
     const form = new FormData();
     form.append("prompt",        prompt);
     form.append("aspect_ratio",  "4:3");
     form.append("output_format", "png");
-
     const res = await fetch(
       "https://api.stability.ai/v2beta/stable-image/generate/core",
-      {
-        method:  "POST",
-        headers: { Authorization: `Bearer ${apiKey}`, Accept: "image/*" },
-        body:    form,
-      },
+      { method: "POST", headers: { Authorization: `Bearer ${apiKey}`, Accept: "image/*" }, body: form },
     );
-
     if (!res.ok) { console.error("Stability error:", await res.text()); return null; }
     return Buffer.from(await res.arrayBuffer());
   } catch (e) {
@@ -267,77 +424,18 @@ async function buildStabilityImage(
   }
 }
 
-/* ── AI path — DALL-E 3 ─────────────────────────────────────────────────── */
+const STABILITY_PROMPTS: Record<string, (brand: string) => string> = {
+  "mockup-business-card.png": (b) =>
+    `Luxury business card flat lay on white marble, brand logo '${b}', minimalist gold accents, studio lighting, photorealistic 4K`,
+  "mockup-coffee-cup.png": (b) =>
+    `Premium kraft coffee cup with '${b}' logo, cozy cafe bokeh background, warm lighting, photorealistic 4K`,
+  "mockup-tshirt.png": (b) =>
+    `White t-shirt flat lay, '${b}' logo on chest, clean gray background, natural lighting, product photography 4K`,
+  "mockup-storefront.png": (b) =>
+    `Modern storefront illuminated LED sign '${b}', sleek glass entrance, golden hour, photorealistic`,
+};
 
-async function buildDalleImage(
-  prompt: string,
-  apiKey: string,
-): Promise<Buffer | null> {
-  try {
-    const res = await fetch("https://api.openai.com/v1/images/generations", {
-      method:  "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-      body: JSON.stringify({
-        model:   "dall-e-3",
-        prompt,
-        n:       1,
-        size:    "1792x1024",
-        quality: "hd",
-      }),
-    });
-
-    if (!res.ok) { console.error("DALL-E error:", await res.text()); return null; }
-    const json   = await res.json() as { data: { url: string }[] };
-    const imgRes = await fetch(json.data[0].url);
-    return Buffer.from(await imgRes.arrayBuffer());
-  } catch (e) {
-    console.error("DALL-E failed:", e);
-    return null;
-  }
-}
-
-/* ── per-mockup builder ─────────────────────────────────────────────────── */
-
-async function buildOneMockup(
-  def:          MockupDef,
-  logoBuf:      Buffer,
-  brandName:    string,
-  tagline:      string,
-  stabilityKey: string | undefined,
-  openaiKey:    string | undefined,
-): Promise<{ name: string; buf: Buffer } | null> {
-
-  // Try Stability AI — returns full scene with brand name baked in
-  if (stabilityKey) {
-    const img = await buildStabilityImage(def.stabilityPrompt(brandName, tagline), stabilityKey);
-    if (img) return { name: def.name, buf: img };
-  }
-
-  // Try DALL-E 3 — generates empty background scene, then we composite the real logo
-  if (openaiKey) {
-    const scene = await buildDalleImage(def.dallePrompt, openaiKey);
-    if (scene) {
-      try {
-        const buf = await compositeLogoOntoScene(scene, logoBuf, def);
-        return { name: def.name, buf };
-      } catch (e) {
-        console.error(`Logo composite failed for ${def.name}:`, e);
-        // fall through to sharp fallback
-      }
-    }
-  }
-
-  // Sharp fallback — always works
-  try {
-    const buf = await buildSharpFallback(def, logoBuf, brandName);
-    return { name: def.name, buf };
-  } catch (e) {
-    console.error(`Sharp fallback failed for ${def.name}:`, e);
-    return null;
-  }
-}
-
-/* ── public entry point ─────────────────────────────────────────────────── */
+/* ── Public entry point ──────────────────────────────────────────────────── */
 
 export async function buildCreativeMockups(opts: {
   logoBuf:   Buffer;
@@ -345,15 +443,35 @@ export async function buildCreativeMockups(opts: {
   tagline:   string;
   accentHex: string;
 }): Promise<{ name: string; buf: Buffer }[]> {
-  const { logoBuf, brandName, tagline } = opts;
-
+  const { logoBuf, brandName } = opts;
   const stabilityKey = process.env.STABILITY_API_KEY;
-  const openaiKey    = process.env.OPENAI_API_KEY;
+
+  const builders: [string, () => Promise<Buffer>][] = [
+    ["mockup-business-card.png", () => buildBusinessCard(logoBuf, brandName)],
+    ["mockup-coffee-cup.png",    () => buildCoffeeCup(logoBuf, brandName)],
+    ["mockup-tshirt.png",        () => buildTshirt(logoBuf, brandName)],
+    ["mockup-storefront.png",    () => buildStorefront(logoBuf, brandName)],
+  ];
 
   const results = await Promise.all(
-    MOCKUPS.map((def) =>
-      buildOneMockup(def, logoBuf, brandName, tagline, stabilityKey, openaiKey),
-    ),
+    builders.map(async ([name, buildFn]) => {
+      try {
+        // If Stability AI key is set, try AI-generated scene first
+        if (stabilityKey) {
+          const prompt = STABILITY_PROMPTS[name]?.(brandName);
+          if (prompt) {
+            const aiBuf = await buildStabilityImage(prompt, stabilityKey);
+            if (aiBuf) return { name, buf: aiBuf };
+          }
+        }
+        // Always-on sharp/SVG composite — uses the real client logo
+        const buf = await buildFn();
+        return { name, buf };
+      } catch (e) {
+        console.error(`Mockup failed for ${name}:`, e);
+        return null;
+      }
+    }),
   );
 
   return results.filter((r): r is { name: string; buf: Buffer } => r !== null);
