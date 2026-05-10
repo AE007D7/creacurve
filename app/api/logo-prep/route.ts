@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 import JSZip from "jszip";
 import Anthropic from "@anthropic-ai/sdk";
+import { trackLogoGenerated } from "@/lib/stats";
 import { extractLogoColors } from "@/lib/render/color-extractor";
 import { buildLogoPrepPDF } from "@/lib/render/logo-prep-pdf";
 import { buildBrandBoard, buildCardMockup3D, buildFaviconSet } from "@/lib/render/logo-mockup";
@@ -165,6 +166,9 @@ export async function POST(req: NextRequest) {
 
     const zipBuf  = await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
     const safeName = brandName.replace(/[^a-z0-9]/gi, "-").toLowerCase();
+
+    // fire-and-forget — never awaited so it never delays the response
+    trackLogoGenerated().catch(() => {});
 
     return new NextResponse(zipBuf as unknown as BodyInit, {
       headers: {
