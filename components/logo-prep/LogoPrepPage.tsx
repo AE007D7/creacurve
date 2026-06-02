@@ -3,9 +3,10 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Upload, Download, CheckCircle, Loader2, ImageIcon, X, Sparkles, ChevronDown, FileText,
+  Upload, Download, CheckCircle, Loader2, ImageIcon, X, Sparkles, ChevronDown, FileText, Lock,
 } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 // ── Nav ──────────────────────────────────────────────────────────────────────
 
@@ -88,23 +89,96 @@ const OUTPUT_FILES = [
   { group: "06 — Print & Design", label: "logo.svg",              desc: "SVG vector container",               badge: "bg-teal-50    border-teal-200   text-teal-700"  },
   { group: "06 — Print & Design", label: "logo.psd",              desc: "Photoshop flat RGBA document",       badge: "bg-blue-50    border-blue-200   text-blue-700"  },
   { group: "06 — Print & Design", label: "logo.ai",                   desc: "Adobe Illustrator compatible file",  badge: "bg-orange-50  border-orange-200 text-orange-700"},
-  { group: "07 — AI Creatives",   label: "mockup-business-card.png",  desc: "Business card on marble desk",      badge: "bg-pink-50    border-pink-200    text-pink-700"  },
-  { group: "07 — AI Creatives",   label: "mockup-coffee-cup.png",     desc: "Coffee cup in café setting",        badge: "bg-pink-50    border-pink-200    text-pink-700"  },
-  { group: "07 — AI Creatives",   label: "mockup-tshirt.png",         desc: "T-shirt flat lay",                  badge: "bg-pink-50    border-pink-200    text-pink-700"  },
-  { group: "07 — AI Creatives",   label: "mockup-storefront.png",     desc: "Storefront LED signage",            badge: "bg-pink-50    border-pink-200    text-pink-700"  },
 ];
 
 const STEPS = ["Remove BG", "Variants", "Favicons", "Mockups", "Brand PDF", "ZIP"];
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
+const STORAGE_KEY = "logo_prep_unlocked";
+
+function PaywallModal({ onClose, onPay, paying }: { onClose: () => void; onPay: () => void; paying: boolean }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-8 relative"
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-700 transition-colors"
+        >
+          <X size={14} />
+        </button>
+
+        <div className="flex flex-col items-center text-center gap-4">
+          <div className="w-14 h-14 rounded-full bg-violet-50 border border-violet-200 flex items-center justify-center">
+            <Lock size={22} className="text-violet-500" />
+          </div>
+          <div>
+            <p className="text-lg font-bold text-gray-900 mb-1">Your free use is done</p>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              Unlock unlimited logo prep conversions for a one-time payment of{" "}
+              <span className="font-semibold text-gray-800">$4.90</span>.
+            </p>
+          </div>
+
+          <ul className="w-full text-left space-y-2 mt-1">
+            {[
+              "Transparent PNG, SVG, PSD, PDF, AI",
+              "Favicons (16, 32, 192px)",
+              "Brand guidelines PDF",
+              "Copyright certificate",
+              "3D card & wall mockups",
+              "Unlimited uses, forever",
+            ].map((f) => (
+              <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
+                <CheckCircle size={14} className="text-violet-500 flex-shrink-0" />
+                {f}
+              </li>
+            ))}
+          </ul>
+
+          <button
+            onClick={onPay}
+            disabled={paying}
+            className="w-full flex items-center justify-center gap-2 text-sm font-semibold px-6 py-3 rounded-xl text-white transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 mt-2 disabled:opacity-70"
+            style={{ background: "linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)" }}
+          >
+            {paying ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+            {paying ? "Redirecting…" : "Unlock for $4.90"}
+          </button>
+          <p className="text-xs text-gray-400">One-time payment · No subscription · Secure checkout</p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function LogoPrepPage() {
-  const [state, setState]       = useState<State>({ phase: "idle" });
-  const [dragOver, setDragOver] = useState(false);
+  const [state, setState]         = useState<State>({ phase: "idle" });
+  const [dragOver, setDragOver]   = useState(false);
   const [brandName, setBrandName] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [tagline,   setTagline]   = useState("");
+  const [showPaywall, setShowPaywall] = useState(false);
+  const [unlocked, setUnlocked]   = useState(false);
+  const [paying, setPaying]       = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === "1") setUnlocked(true);
+
+    // After Stripe redirect with ?unlocked=1
+    if (searchParams.get("unlocked") === "1") {
+      localStorage.setItem(STORAGE_KEY, "1");
+      setUnlocked(true);
+    }
+  }, [searchParams]);
 
   const handleFile = useCallback((file: File) => {
     if (!file.type.startsWith("image/")) return;
@@ -126,8 +200,30 @@ export default function LogoPrepPage() {
     if (inputRef.current) inputRef.current.value = "";
   };
 
+  const handlePaywall = async () => {
+    setPaying(true);
+    try {
+      const res = await fetch("/api/logo-prep-checkout", { method: "POST" });
+      const data = await res.json() as { url?: string; error?: string };
+      if (data.url) window.location.href = data.url;
+      else alert(data.error || "Checkout failed. Please try again.");
+    } catch {
+      alert("Network error. Please try again.");
+    } finally {
+      setPaying(false);
+    }
+  };
+
   const process = async () => {
     if (state.phase !== "preview") return;
+
+    // Check if this is first free use or already unlocked
+    const hasUsedFree = localStorage.getItem("logo_prep_used") === "1";
+    if (hasUsedFree && !unlocked) {
+      setShowPaywall(true);
+      return;
+    }
+
     const { file } = state;
     URL.revokeObjectURL(state.previewUrl);
     setState({ phase: "processing" });
@@ -148,6 +244,8 @@ export default function LogoPrepPage() {
       const blob = await res.blob();
       const zipUrl = URL.createObjectURL(blob);
       const safeName = (brandName || "logo").replace(/\s+/g, "-").toLowerCase();
+      // Mark that the free use has been consumed
+      localStorage.setItem("logo_prep_used", "1");
       setState({ phase: "done", zipUrl, fileName: `${safeName}-files.zip` });
     } catch {
       alert("Network error. Please try again.");
@@ -165,6 +263,15 @@ export default function LogoPrepPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <AnimatePresence>
+        {showPaywall && (
+          <PaywallModal
+            onClose={() => setShowPaywall(false)}
+            onPay={handlePaywall}
+            paying={paying}
+          />
+        )}
+      </AnimatePresence>
       <Nav />
 
       {/* ── Hero ── */}
@@ -182,7 +289,7 @@ export default function LogoPrepPage() {
           >
             <div className="inline-flex items-center gap-2 border border-violet-200 bg-violet-50 rounded-full px-3 py-1 mb-6">
               <Sparkles size={12} className="text-violet-500" />
-              <span className="text-xs font-medium text-violet-700 tracking-wide">Free Logo Prep Tool</span>
+              <span className="text-xs font-medium text-violet-700 tracking-wide">{unlocked ? "Unlimited Access Unlocked" : "First Use Free"}</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-[1.08] mb-5">
@@ -203,8 +310,8 @@ export default function LogoPrepPage() {
             </h1>
 
             <p className="text-lg text-gray-500 mb-10 max-w-xl mx-auto leading-relaxed">
-              Upload your logo and get 23 files — transparent PNG, SVG, PSD, PDF, AI, favicons, brand guidelines, copyright cert, and{" "}
-              <span className="font-medium text-gray-700">AI creative mockups</span>. One ZIP, free.
+              Upload your logo and get 19 files — transparent PNG, SVG, PSD, PDF, AI, favicons, brand guidelines, copyright cert, and{" "}
+              <span className="font-medium text-gray-700">3D mockups</span>. First use free.
             </p>
           </motion.div>
 
@@ -388,7 +495,7 @@ export default function LogoPrepPage() {
                     </div>
                     <div className="text-center">
                       <p className="text-lg font-bold text-gray-900 mb-1">Your files are ready!</p>
-                      <p className="text-sm text-gray-500">ZIP contains 23 files in 7 folders — originals, variants, favicons, mockups, brand docs, print formats & AI creatives</p>
+                      <p className="text-sm text-gray-500">ZIP contains 19 files in 6 folders — originals, variants, favicons, mockups, brand docs & print formats</p>
                     </div>
 
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mt-1 text-left">
@@ -640,8 +747,8 @@ export default function LogoPrepPage() {
           <p className="text-gray-500 text-center mb-10">Everything you need to know about logo file formats</p>
           <div className="space-y-4">
             {[
-              { q: "Is this tool free?", a: "Yes — completely free. No account, no watermark, no credit card. Upload your logo and download all 23 files instantly." },
-              { q: "What formats do I get?", a: "Transparent PNG, black & white versions, logo on white & dark backgrounds, SVG, PSD (Photoshop), PDF (print-ready), Adobe AI, favicons (16/32/192px), brand guidelines PDF, copyright certificate, 2D brand board, 3D card mockup, 3D wall mockup, and 4 AI creative mockups." },
+              { q: "Is this tool free?", a: "Your first use is completely free — no account, no watermark, no credit card. After your first free generation, a one-time $4.90 payment unlocks unlimited uses forever." },
+              { q: "What formats do I get?", a: "Transparent PNG, black & white versions, logo on white & dark backgrounds, SVG, PSD (Photoshop), PDF (print-ready), Adobe AI, favicons (16/32/192px), brand guidelines PDF, copyright certificate, 2D brand board, 3D card mockup, and 3D wall mockup — 19 files in 6 folders." },
               { q: "Can I convert my logo to SVG?", a: "Yes. The tool wraps your logo in a proper SVG 1.1 container with xlink:href embedding — compatible with Illustrator, Inkscape, Figma, and all browsers." },
               { q: "How do I get a Photoshop PSD from my logo?", a: "The tool generates a flat RGBA PSD file from your logo's pixel data. It opens in Photoshop CS4+, Affinity Photo, and GIMP — no Photoshop needed to create it." },
               { q: "What is the Adobe Illustrator .ai file?", a: "The .ai file is a PDF 1.4 document with Adobe Illustrator identification headers. Illustrator CS2 and newer opens it as a native AI file." },
