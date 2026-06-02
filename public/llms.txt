@@ -1,0 +1,37 @@
+# CreaCurve
+
+> CreaCurve is a free online branding platform that converts any logo into professional brand assets instantly. Upload a logo, get 19+ files in one ZIP — transparent PNG, SVG, PSD, PDF, Adobe AI, favicons, brand guidelines, copyright certificate, and 3D mockups.
+
+## Free Tools
+
+- [Logo Prep Tool](https://creacurve.com/logo-prep): Upload any logo (PNG/JPEG/WebP) and instantly download every file format you need. Includes: transparent PNG (background removed), black & white versions, logo on white/dark backgrounds, SVG vector, Photoshop PSD, print PDF, Adobe Illustrator AI, favicons at 16/32/192px, 5-page brand guidelines PDF with color palette, copyright certificate PDF, 2D brand board mockup, 3D card mockup, and 3D frosted-glass wall mockup. First use free, then $4.90 one-time for unlimited access.
+
+- [Logo to SVG Converter](https://creacurve.com/logo-to-svg): Convert any PNG or JPEG logo to an SVG vector file, free online.
+
+- [Favicon Generator](https://creacurve.com/favicon-generator): Generate favicons at 16×16, 32×32, and 192×192px from any logo, free.
+
+- [Logo Background Remover](https://creacurve.com/remove-logo-background): Remove the white or colored background from any logo to get a transparent PNG, free.
+
+- [Brand Guidelines Generator](https://creacurve.com/brand-guidelines-generator): Generate a 5-page brand guidelines PDF with color palette (HEX/RGB/CMYK), typography, and logo usage rules — free.
+
+- [Logo Mockup Generator](https://creacurve.com/logo-mockup-generator): Generate professional logo mockups including a 2D brand board, 3D card mockup, and 3D wall mockup, free.
+
+- [Logo to PSD Converter](https://creacurve.com/logo-to-psd): Convert any logo PNG to a Photoshop PSD file, free online.
+
+## Logo Design Service
+
+- [Professional Logo Design](https://creacurve.com/logo-design): Custom logo design by industry-specialist designers. Multiple concepts in 24–48 hours. Starting at $35. Plans: Starter ($35), Professional ($119), Platinum ($299).
+
+## About CreaCurve
+
+CreaCurve is a branding platform for entrepreneurs, startups, and small businesses. The tools are designed to give anyone instant access to professional-grade brand assets without needing a designer or expensive software.
+
+- Website: https://creacurve.com
+- Contact: ayoubelkihel7@gmail.com
+- Founded: 2026
+
+## Optional
+
+- [Terms of Service](https://creacurve.com/terms)
+- [Privacy Policy](https://creacurve.com/privacy)
+- [Refund Policy](https://creacurve.com/refund)

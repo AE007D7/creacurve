@@ -95,10 +95,38 @@ export const metadata: Metadata = {
   },
 };
 
+const LD_ORGANIZATION = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://creacurve.com#organization",
+  name: "CreaCurve",
+  url: "https://creacurve.com",
+  logo: "https://creacurve.com/og-image.jpg",
+  sameAs: ["https://twitter.com/creacurve"],
+  contactPoint: { "@type": "ContactPoint", email: "ayoubelkihel7@gmail.com", contactType: "customer support" },
+};
+
+const LD_WEBSITE = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://creacurve.com#website",
+  url: "https://creacurve.com",
+  name: "CreaCurve",
+  description: "Free logo prep tool and professional logo design service",
+  publisher: { "@id": "https://creacurve.com#organization" },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: { "@type": "EntryPoint", urlTemplate: "https://creacurve.com/logo-prep" },
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>
       <head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(LD_ORGANIZATION) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(LD_WEBSITE) }} />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18137575324"
           strategy="afterInteractive"
