@@ -239,6 +239,8 @@ const schemas = [
   },
 ];
 
+import { Suspense } from "react";
+
 export default function Page() {
   return (
     <>
@@ -249,7 +251,9 @@ export default function Page() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }}
         />
       ))}
-      <LogoPrepPage />
+      <Suspense>
+        <LogoPrepPage />
+      </Suspense>
     </>
   );
 }
