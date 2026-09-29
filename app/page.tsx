@@ -1,58 +1,13 @@
-import Nav from "@/components/logo-design/Nav";
-import Hero from "@/components/logo-design/Hero";
-import LogoMarquee from "@/components/logo-design/LogoMarquee";
-import StatsBar from "@/components/logo-design/StatsBar";
-import ToolsBanner from "@/components/logo-design/ToolsBanner";
-import Features from "@/components/logo-design/Features";
-import Pricing from "@/components/logo-design/Pricing";
-import Portfolio from "@/components/logo-design/Portfolio";
-import Industries from "@/components/logo-design/Industries";
-import Testimonials from "@/components/logo-design/Testimonials";
-import FAQSection from "@/components/logo-design/FAQSection";
-import LeadForm from "@/components/logo-design/LeadForm";
-import CTAStrip from "@/components/logo-design/CTAStrip";
-import ChatWidget from "@/components/logo-design/ChatWidget";
-import type { Metadata } from "next";
-
-const BASE = "https://creacurve.com";
-
-export const metadata: Metadata = {
-  title: "Professional Logo Design Service — Starting at $35 | CreaCurve",
-  description:
-    "Get a custom logo from industry-specialist designers in 24–48 hours. Multiple concepts, unlimited revisions, SVG/PNG/PDF files. Trusted by 2,000+ brands. 4.9★ from 1,200+ reviews. Starting at $35.",
-  alternates: { canonical: BASE },
-  openGraph: {
-    title: "Professional Logo Design Service — Starting at $35 | CreaCurve",
-    description:
-      "Custom logo design from industry specialists. 24–48 hour delivery, unlimited revisions, 4.9★ rated. Starting at $35.",
-    url: BASE,
-    siteName: "CreaCurve",
-    type: "website",
-    images: [{ url: `${BASE}/og-logo-design.jpg`, width: 1200, height: 630 }],
-  },
-};
-
-export default function Home() {
-  return (
-    <div className="bg-white text-gray-900 min-h-screen">
-      <Nav />
-        <main>
-          <Hero />
-          <LogoMarquee />
-          <StatsBar />
-          <ToolsBanner />
-          <Features />
-          <section id="pricing">
-            <Pricing />
-          </section>
-          <Portfolio />
-          <Industries />
-          <Testimonials />
-          <FAQSection />
-          <LeadForm />
-          <CTAStrip />
-        </main>
-        <ChatWidget />
-    </div>
-  );
-}
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { PrintingShell } from '@/components/PrintingShell';
+import { GuideArt } from '@/components/printing/GuideArt';
+import { guides } from '@/lib/printing/guides';
+export const metadata:Metadata={title:'CreaCurve | 3D Printing Ideas & Practical Guides',description:'Explore 3D printing ideas, FDM materials, design methods and troubleshooting guides for useful prints.',alternates:{canonical:'/'}};
+export default function Home(){return <PrintingShell><main>
+<section className="technical-grid relative overflow-hidden border-b border-white/10"><div className="pointer-events-none absolute left-1/2 top-0 h-[650px] w-[850px] -translate-x-1/2 rounded-full bg-[#7b3bcc]/10 blur-[110px]"/><div className="relative mx-auto grid min-h-[690px] max-w-7xl items-center gap-5 px-5 pb-14 pt-20 md:grid-cols-[.95fr_1.05fr] md:px-8 md:pb-24 md:pt-24"><div className="relative z-10"><p className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[.22em] text-[#48ead5]"><span className="h-2 w-2 rounded-full bg-[#e174e7] shadow-[0_0_14px_#e174e7]"/>From concept to creation</p><h1 className="mt-7 max-w-2xl text-[clamp(3.7rem,7vw,6.8rem)] font-bold leading-[.99] tracking-[-.075em]">Make it<br/><span className="text-white">real in</span> <span className="bg-gradient-to-r from-[#35e2d0] via-[#78adfa] to-[#d16dea] bg-clip-text text-transparent">3D.</span></h1><p className="mt-7 max-w-lg text-lg leading-8 text-[#b4bfce]">Bold ideas are only the beginning. Learn how to design, print, troubleshoot, and improve objects made for the real world.</p><div className="mt-9 flex flex-wrap gap-3"><Link href="/guides" className="rounded-full bg-[#c56ae5] px-7 py-3.5 text-sm font-bold text-[#101020] shadow-[0_10px_35px_#b95bda42] hover:bg-[#e093f4]">Explore the guides ↗</Link><Link href="/guides/first-3d-print-checklist" className="rounded-full border border-white/25 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/10">Start your first print</Link></div><div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/15 pt-5 text-xs font-semibold uppercase tracking-[.14em] text-[#8d9daf]"><span>01 / Design</span><span>02 / Print</span><span>03 / Refine</span></div></div><div className="relative min-h-[360px] md:min-h-[540px]"><div className="absolute inset-6 rounded-full bg-gradient-to-br from-[#125d76]/25 via-transparent to-[#6f2679]/25 blur-[45px]"/><Image src="/images/printed-objects-hero.webp" alt="Three 3D printed objects: a blue lattice sculpture, white textured vase, and purple geometric fox" fill priority sizes="(max-width: 768px) 100vw, 55vw" className="object-contain drop-shadow-[0_35px_45px_rgba(0,0,0,.5)]"/><div className="absolute bottom-2 right-0 rounded-lg border border-white/20 bg-[#111725]/80 px-4 py-3 text-[10px] font-bold uppercase tracking-[.18em] text-[#9fe4de] backdrop-blur">Shape / Layer / Create</div></div></div><div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#9b67e9] to-transparent"/></section>
+<section className="border-b border-white/10 bg-[#0d1320]"><div className="mx-auto grid max-w-7xl gap-4 px-5 py-8 md:grid-cols-3 md:px-8">{[['Materials','Pick the right filament for the job.'],['Troubleshooting','Find the cause before changing settings.'],['Design','Make parts that fit and hold up.']].map(([title,desc],i)=><div key={title} className="flex items-start gap-4 border-white/10 py-3 md:border-r md:pr-6 last:border-0"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-[#bb6de7]/40 bg-[#b56ee7]/10 font-mono text-[#df97f9]">0{i+1}</span><div><h2 className="font-bold">{title}</h2><p className="mt-1 text-sm text-[#8e9eae]">{desc}</p></div></div>)}</div></section>
+<section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28"><div className="flex flex-wrap items-end justify-between gap-5"><div><p className="eyebrow">The maker journal / 001—006</p><h2 className="mt-4 text-4xl font-bold tracking-[-.05em] md:text-5xl">Explore. Experiment. <span className="text-[#bd76eb]">Improve.</span></h2><p className="mt-4 max-w-xl leading-7 text-[#9aabba]">Useful reading for the questions that show up at the printer.</p></div><Link href="/guides" className="text-sm font-bold text-[#47dfce] hover:underline">View the full library ↗</Link></div><div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{guides.map((g,i)=><Link key={g.slug} href={`/guides/${g.slug}`} className="group overflow-hidden rounded-2xl border border-white/10 bg-[#111a28] transition duration-300 hover:-translate-y-1 hover:border-[#ab6ce6]/70 hover:shadow-[0_20px_60px_#722fb322]"><GuideArt variant={i}/><div className="p-6"><p className="text-[11px] font-bold uppercase tracking-[.17em] text-[#5ae2d4]">{g.category} <span className="mx-2 text-[#5f6c7b]">/</span> {g.readingMinutes} min read</p><h3 className="mt-4 min-h-16 text-xl font-bold leading-tight tracking-tight group-hover:text-[#e5b6f6]">{g.title}</h3><p className="mt-3 line-clamp-2 text-sm leading-6 text-[#9daaba]">{g.description}</p><span className="mt-6 inline-block text-sm font-bold text-[#c885ef]">Read article ↗</span></div></Link>)}</div></section>
+<section className="border-y border-white/10 bg-[#111526]"><div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[.7fr_1fr] md:items-center md:px-8"><div><p className="eyebrow">Future workshop</p><h2 className="mt-4 text-4xl font-bold tracking-tight">Ideas made tangible.</h2></div><p className="max-w-2xl leading-8 text-[#abb8c7]">We are developing a library of practical 3D printing knowledge. Original printable designs and finished pieces may come later. For now, explore the techniques and build something worth keeping.</p></div></section>
+</main></PrintingShell>}
