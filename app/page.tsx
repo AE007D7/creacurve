@@ -1,58 +1,12 @@
-import Nav from "@/components/logo-design/Nav";
-import Hero from "@/components/logo-design/Hero";
-import LogoMarquee from "@/components/logo-design/LogoMarquee";
-import StatsBar from "@/components/logo-design/StatsBar";
-import ToolsBanner from "@/components/logo-design/ToolsBanner";
-import Features from "@/components/logo-design/Features";
-import Pricing from "@/components/logo-design/Pricing";
-import Portfolio from "@/components/logo-design/Portfolio";
-import Industries from "@/components/logo-design/Industries";
-import Testimonials from "@/components/logo-design/Testimonials";
-import FAQSection from "@/components/logo-design/FAQSection";
-import LeadForm from "@/components/logo-design/LeadForm";
-import CTAStrip from "@/components/logo-design/CTAStrip";
-import ChatWidget from "@/components/logo-design/ChatWidget";
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { PrintingShell } from '@/components/PrintingShell';
+import { guides } from '@/lib/printing/guides';
 
-const BASE = "https://creacurve.com";
-
-export const metadata: Metadata = {
-  title: "Professional Logo Design Service — Starting at $35 | CreaCurve",
-  description:
-    "Get a custom logo from industry-specialist designers in 24–48 hours. Multiple concepts, unlimited revisions, SVG/PNG/PDF files. Trusted by 2,000+ brands. 4.9★ from 1,200+ reviews. Starting at $35.",
-  alternates: { canonical: BASE },
-  openGraph: {
-    title: "Professional Logo Design Service — Starting at $35 | CreaCurve",
-    description:
-      "Custom logo design from industry specialists. 24–48 hour delivery, unlimited revisions, 4.9★ rated. Starting at $35.",
-    url: BASE,
-    siteName: "CreaCurve",
-    type: "website",
-    images: [{ url: `${BASE}/og-logo-design.jpg`, width: 1200, height: 630 }],
-  },
-};
-
-export default function Home() {
-  return (
-    <div className="bg-white text-gray-900 min-h-screen">
-      <Nav />
-        <main>
-          <Hero />
-          <LogoMarquee />
-          <StatsBar />
-          <ToolsBanner />
-          <Features />
-          <section id="pricing">
-            <Pricing />
-          </section>
-          <Portfolio />
-          <Industries />
-          <Testimonials />
-          <FAQSection />
-          <LeadForm />
-          <CTAStrip />
-        </main>
-        <ChatWidget />
-    </div>
-  );
-}
+export const metadata: Metadata = { title: 'CreaCurve | Practical 3D Printing Guides', description: 'Learn FDM 3D printing with practical guides to materials, first layers, design, fit, and useful printed objects.', alternates: { canonical: '/' } };
+export default function Home() { return <PrintingShell>
+  <main>
+    <section className="border-b border-[#d9dfd9]"><div className="mx-auto grid max-w-6xl gap-12 px-5 py-20 md:grid-cols-[1.25fr_0.75fr] md:items-center md:py-28"><div><p className="mb-5 text-xs font-bold uppercase tracking-[0.22em] text-[#126659]">Make useful things, thoughtfully</p><h1 className="max-w-3xl text-5xl font-semibold leading-[1.06] tracking-[-0.05em] md:text-7xl">Better 3D prints start with <em className="font-serif text-[#126659]">better questions.</em></h1><p className="mt-7 max-w-xl text-lg leading-8 text-[#53605d]">Clear, practical guides for choosing materials, fixing failed prints, and designing parts that fit. Build your skills one print at a time.</p><Link href="/guides" className="mt-9 inline-block rounded-full bg-[#126659] px-7 py-4 font-semibold text-white hover:bg-[#0b4c42]">Explore the guides ↗</Link></div><div className="relative min-h-80 rounded-[2rem] bg-[#dce9df] p-8 shadow-[15px_15px_0_#e8dbc8]" aria-label="Illustration of a layered 3D printed object"><div className="absolute left-[20%] top-[18%] h-48 w-48 rotate-[-16deg] rounded-[2.5rem] border-[22px] border-[#126659] shadow-[12px_14px_0_#0d4a43,24px_28px_0_#b36e34]"></div><div className="absolute bottom-8 left-8 rounded-xl bg-white/85 px-4 py-3 text-sm font-semibold text-[#126659]">Layer by layer. Idea by idea.</div></div></div></section>
+    <section className="mx-auto max-w-6xl px-5 py-20"><div className="flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.22em] text-[#b36e34]">The workshop journal</p><h2 className="mt-3 text-4xl font-semibold tracking-tight">Start with a real problem.</h2></div><Link href="/guides" className="font-semibold text-[#126659] underline underline-offset-4">View all guides</Link></div><div className="mt-9 grid gap-5 md:grid-cols-3">{guides.map((g, i) => <Link key={g.slug} href={`/guides/${g.slug}`} className="group flex min-h-64 flex-col justify-between rounded-2xl border border-[#d9dfd9] bg-white p-7 transition hover:-translate-y-1 hover:border-[#126659]"><div><span className="text-xs font-bold uppercase tracking-wider text-[#126659]">{String(i+1).padStart(2,'0')} / {g.category}</span><h3 className="mt-5 text-2xl font-semibold leading-tight tracking-tight group-hover:text-[#126659]">{g.title}</h3><p className="mt-4 leading-7 text-[#53605d]">{g.description}</p></div><span className="mt-8 text-sm font-semibold text-[#b36e34]">Read guide →</span></Link>)}</div></section>
+    <section className="bg-[#163f39] text-white"><div className="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-[0.2em] text-[#b4d9ba]">What comes next</p><h2 className="mt-4 text-3xl font-semibold">Objects worth making.</h2></div><p className="self-center leading-8 text-[#d4e6df]">We are building a library of practical 3D printing knowledge. An original collection of printable designs and finished pieces may follow. For now, use these guides to learn, test, and make more confidently.</p></div></section>
+  </main></PrintingShell>; }

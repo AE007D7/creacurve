@@ -72,3 +72,7 @@ body {
 }
 .animate-accordion-down { animation: accordion-down 0.2s ease-out; }
 .animate-accordion-up   { animation: accordion-up   0.2s ease-out; }
+/* Editorial site */
+.print-site { font-family: var(--font-geist), Arial, sans-serif; }
+.print-site a:focus-visible { outline: 3px solid #b36e34; outline-offset: 3px; }
+.print-site em { font-family: var(--font-serif), Georgia, serif; }
